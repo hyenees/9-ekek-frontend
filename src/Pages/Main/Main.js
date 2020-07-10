@@ -8,12 +8,16 @@ import MainProductEvent from "../../Components/MainProductEvent";
 import MainProductMonth from "../../Components/MainProductMonth";
 import MainInfo from "../../Components/MainInfo";
 import Furnishing from "../../Pages/Main/Furnishing";
+import SideBarClick from "../../Components/SideBar/SideBarClick";
+import SideBarClickFurniture from "../../Components/SideBar/SideBarClickFurniture";
 
 class Main extends React.Component {
   constructor() {
     super();
     this.state = {
       sideBar: false,
+      sideBarClick: false,
+      currentIndex: 0,
     };
   }
 
@@ -21,15 +25,25 @@ class Main extends React.Component {
     this.setState({ sideBar: !this.state.sideBar });
   };
 
+  GoBackButtonHandler = () => {
+    this.setState({ SideBarClick: !this.state.SideBarClick });
+  };
+
+  currentIdxHandler = (idx) => {
+    this.setState({ currentIndex: idx });
+  };
   render() {
     return (
       <>
         <Nav NavButtonHandler={this.NavButtonHandler} />
         <SideBarOption sideBar={this.state.sideBar}>
-          <SideBar NavButtonHandler={this.NavButtonHandler} />
+          <SideBar
+            NavButtonHandler={this.NavButtonHandler}
+            currentIndex={this.state.currentIndex}
+            currentIdxHandler={this.currentIdxHandler}
+          />
         </SideBarOption>
         <Container>
-          {/* 메인 이미지 & 텍스트 */}
           <img className="main_photo" src={main_photo} alt="main_photo"></img>
           <p className="main_photo_text">
             매년 여름 찾아오는 마법같은 축제와 세일! 최대 70%까지 할인되는
@@ -73,7 +87,6 @@ const Container = styled.div`
     margin-bottom: 60px;
     cursor: pointer;
   }
-
   .main_photo_text {
     margin-bottom: 60px;
     font-family: "Noto IKEA";

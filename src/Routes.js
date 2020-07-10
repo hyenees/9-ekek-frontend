@@ -7,6 +7,8 @@ import ProductList from "./Pages/Products/ProductList";
 import ProductsDetails from "./Pages/Products/ProductDetails";
 import Cart from "./Pages/Cart/Cart";
 import Wishlist from "./Pages/Wishlist/Wishlist";
+import SideBarClick from "./Components/SideBar/SideBarClick";
+import SideBarClickFurniture from "./Components/SideBar/SideBarClickFurniture";
 
 class Routes extends React.Component {
   render() {
@@ -20,6 +22,8 @@ class Routes extends React.Component {
           <Route exact path="/products-detail" component={ProductsDetails} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/wishlist" component={Wishlist} />
+          <Route exact path="/side2" component={SideBarClick} />
+          <Route exact path="/side" component={SideBarClickFurniture} />
         </Switch>
       </Router>
     );

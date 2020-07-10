@@ -1,14 +1,15 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
 import { GrFormClose } from "react-icons/gr";
 import ikea from "../../Images/ikea.svg";
 import earth from "../../Images/earth.png";
 import downarrow from "../../Images/downarrow.png";
+import SideBarClick from "../../Components/SideBar/SideBarClick";
 
 class SideBar extends React.Component {
   render() {
     return (
-      <Fragment>
+      <>
         <Container>
           <Top>
             <div className="grform_and_img_box">
@@ -21,67 +22,57 @@ class SideBar extends React.Component {
               <img src={ikea} alt="" width="90" heigh="36" />
             </div>
           </Top>
-          <Content>
-            <ul className="first_ul">
-              <li>
-                <a
-                  className="all_product"
-                  href="https://www.ikea.com/kr/ko/cat/products-products/"
-                  role="button"
-                  data-index="0"
-                >
-                  모든 제품
-                </a>
-              </li>
-              <li>
-                <a
-                  className="digital_showroom"
-                  href="https://www.ikea.com/kr/ko/cat/products-products/"
-                  role="button"
-                  data-index="0"
-                >
-                  디지털 쇼룸
-                </a>
-              </li>
-              <li>
-                <a href="https://homeideas.ikea.kr/new/">아이디어</a>
-              </li>
-              <li>
-                <a href="https://www.ikea.com/kr/ko/stores/">매장 안내</a>
-              </li>
-              <li>
-                <a href="https://www.ikea.com/kr/ko/campaigns/">이달의 혜택</a>
-              </li>
-              <li>
-                <a href="https://www.ikea.com/kr/ko/news/">유용한 정보</a>
-              </li>
-              <li>
-                <a href="https://www.ikea.com/kr/ko/campaigns/">
-                  더 낮은 새로운 가격
-                </a>
-              </li>
-            </ul>
-            <ul className="second_ul">
-              <li>
-                <a href="https://www.ikea.com/kr/ko/ikea-family/">
-                  IKEA Family
-                </a>
-              </li>
-              <li>
-                <a href="https://www.ikea.com/kr/ko/customer-service/">
-                  고객지원
-                </a>
-              </li>
-              <li>
-                <a href="https://www.ikea.com/kr/ko/customer-service/track-manage-order/">
-                  배송조회
-                </a>
-              </li>
-              <li>
-                <a href="https://www.ikea.com/kr/ko/profile/">내 프로필</a>
-              </li>
-            </ul>
-          </Content>
+          {this.props.currentIndex === 0 ? (
+            <Content>
+              <ul className="first_ul">
+                <li>
+                  <span
+                    className="all_product"
+                    onClick={() => this.props.currentIdxHandler(1)}
+                  >
+                    모든 제품
+                  </span>
+                </li>
+                <li>
+                  <span className="digital_showroom">디지털 쇼룸</span>
+                </li>
+                <li>
+                  <span>아이디어</span>
+                </li>
+                <li>
+                  <span>매장 안내</span>
+                </li>
+                <li>
+                  <span>이달의 혜택</span>
+                </li>
+                <li>
+                  <span>유용한 정보</span>
+                </li>
+                <li>
+                  <span>더 낮은 새로운 가격</span>
+                </li>
+              </ul>
+              <ul className="second_ul">
+                <li>
+                  <span>IKEA Family</span>
+                </li>
+                <li>
+                  <span>고객지원</span>
+                </li>
+                <li>
+                  <span>배송조회</span>
+                </li>
+                <li>
+                  <span>내 프로필</span>
+                </li>
+              </ul>
+            </Content>
+          ) : (
+            <SideBarClick
+              currentIdxHandler={this.props.currentIdxHandler}
+              NavButtonHandler={this.props.NavButtonHandler}
+            />
+          )}
           <Bottom>
             <div className="icon_all_box">
               <div className="icon_right2">
@@ -105,7 +96,7 @@ class SideBar extends React.Component {
             </div>
           </Bottom>
         </Container>
-      </Fragment>
+      </>
     );
   }
 }
@@ -113,15 +104,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top:0;
+  top: 0;
   bottom: 0;
-  left:0;
+  left: 0;
   width: 480px;
   height: 952px;
   z-index: 3;
-  /* display: ${(props) => (props.sideBar ? "block" : "none")} */
   background-color: white;
 `;
+
 const Top = styled.div`
   display: flex;
   width: 100%;
@@ -133,7 +124,6 @@ const Top = styled.div`
     justify-content: space-between;
     width: 210px;
     height: 92px;
-    /* background-color:red; */
     .grformclose_box {
       position: relative;
       right: 10px;
@@ -150,6 +140,7 @@ const Top = styled.div`
     }
   }
 `;
+
 const Content = styled.div`
   position: relative;
   left: 150px;
@@ -172,12 +163,14 @@ const Content = styled.div`
         font-weight: 700;
         letter-spacing: -0.64px;
         line-height: 48px;
+        color: #111111;
       }
       .digital_showroom {
         font-size: 36px;
         font-weight: 700;
         letter-spacing: -0.64px;
         line-height: 48px;
+        color: #111111;
       }
     }
   }
@@ -196,6 +189,7 @@ const Content = styled.div`
     }
   }
 `;
+
 const Bottom = styled.div`
   display: Flex;
   justify-content: center;
