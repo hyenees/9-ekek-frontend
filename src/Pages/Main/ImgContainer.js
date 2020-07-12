@@ -2,13 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import FurnishingImgForm from "./FurnishingImgForm";
 
+import { DATA_PATH, URL_PATH } from "../../config";
+
 class ImgContainer extends React.Component {
   state = {
     furnishingData: [],
   };
 
   componentDidMount() {
-    fetch("http://172.30.1.3:8000/product/homefurnishing/")
+    fetch(URL_PATH + "product/homefurnishing/")
       .then((res) => res.json())
       .then((res) => {
         this.setState({
@@ -19,9 +21,7 @@ class ImgContainer extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.buttonClick !== this.props.buttonClick) {
-      fetch(
-        `http://172.30.1.3:8000/product/homefurnishing/?page=${this.props.buttonClick}`
-      )
+      fetch(URL_PATH + `product/homefurnishing/?page=${this.props.buttonClick}`)
         .then((res) => res.json())
         .then((res) => {
           this.setState({

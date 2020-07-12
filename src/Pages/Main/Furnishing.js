@@ -20,12 +20,6 @@ class Furnishing extends React.Component {
     buttonClick: 0,
   };
 
-  buttonColorChange = (e) => {
-    this.setState({
-      colorHandle: e,
-    });
-  };
-
   moreButtonHandler = () => {
     this.setState({
       buttonClick: this.state.buttonClick + 1,
@@ -43,7 +37,11 @@ class Furnishing extends React.Component {
               colorHandle === idx ? "category-btn-clicked" : "category-btn"
             }`}
             key={idx}
-            onClick={() => this.buttonColorChange(idx)}
+            onClick={() => {
+              this.setState({
+                colorHandle: idx,
+              });
+            }}
           >
             {category}
           </button>
