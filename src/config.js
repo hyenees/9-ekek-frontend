@@ -1,2 +1,2 @@
-export const DATA_PATH = "http://localhost:3000/data";
-export const API_URL = "http://10.58.5.220:8000";
+export const URL_PATH = "http://10.58.6.127:8000/";
+export const API_URL = "http://10.58.6.127:8000";
