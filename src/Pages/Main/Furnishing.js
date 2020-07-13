@@ -61,7 +61,7 @@ class Furnishing extends React.Component {
 export default Furnishing;
 
 const Wrapper = styled.div`
-  margin: 55px 0 0 200px;
+  margin: 55px 0 0 150px;
   position: relative;
 
   .category-btn {
@@ -99,7 +99,8 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h3`
-  font-weight: 1000;
+  font-weight: 700;
+  font-size: 22px;
   color: #111111;
 `;
 
@@ -116,12 +117,18 @@ const MoreProductButton = styled.div`
   height: 40px;
   position: relative;
   margin: 0 auto;
-  left: -70px;
+  left: -50px;
   button {
     width: 100%;
     height: 100%;
     border-radius: 40px;
     border: none;
     font-weight: bold;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+      background-color: #dfdfdf;
+    }
   }
 `;
