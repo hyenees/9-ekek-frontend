@@ -11,7 +11,7 @@ ${reset};
 
 body{
     font-family: "NotoSans";
-    color : "#484848";
+    color : #484848;
 }
 
 ol,
@@ -22,12 +22,17 @@ ul {
 a {
   text-decoration: none;
   color: inherit;
+  cursor : pointer;
 }
 
 input:focus,
 button:focus,
 select:focus {
   outline: none;
+}
+
+button {
+  cursor : pointer
 }
 
 
