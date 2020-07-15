@@ -12,7 +12,10 @@ class SideBar extends React.Component {
         <Container>
           <Top>
             <div className="grform_and_img_box">
-              <div className="grformclose_box" onClick={this.props.HandleClick}>
+              <div
+                className="grformclose_box"
+                onClick={this.props.NavButtonHandler}
+              >
                 <GrFormClose size="24" />
               </div>
               <img src={ikea} alt="" width="90" heigh="36" />

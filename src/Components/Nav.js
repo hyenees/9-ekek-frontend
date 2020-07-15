@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import deilver from "../Images/deilver.png";
 import person from "../Images/person.png";
@@ -35,7 +36,9 @@ class Nav extends React.Component {
           <Input />
           <div className="nav_right_icon_box">
             <img className="deilver" src={deilver} alt="logo" />
-            <img className="person" src={person} alt="logo" />
+            <Link to="/login">
+              <img className="person" src={person} alt="logo" />
+            </Link>
             <img className="like" src={like} alt="logo" />
             <img className="basket" src={basket} alt="logo" />
           </div>

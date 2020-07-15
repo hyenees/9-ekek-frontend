@@ -7,6 +7,7 @@ import main_photo from "../../Images/main_photo.png";
 import MainProductEvent from "../../Components/MainProductEvent";
 import MainProductMonth from "../../Components/MainProductMonth";
 import MainInfo from "../../Components/MainInfo";
+import Furnishing from "../../Pages/Main/Furnishing";
 
 class Main extends React.Component {
   constructor() {
@@ -39,6 +40,7 @@ class Main extends React.Component {
           <MainProductMonth />
           <MainInfo />
         </Container>
+        <Furnishing />
         <Footer />
       </>
     );
@@ -65,12 +67,13 @@ const Container = styled.div`
   width: 84%;
   height: 100%;
   margin-top: 90px;
-  margin-left: 200px;
+  margin-left: 150px;
   .main_photo {
     width: 100%;
     margin-bottom: 60px;
     cursor: pointer;
   }
+
   .main_photo_text {
     margin-bottom: 60px;
     font-family: "Noto IKEA";

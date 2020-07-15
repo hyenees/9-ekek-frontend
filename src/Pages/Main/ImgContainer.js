@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import FurnishingImgForm from "./FurnishingImgForm";
 
-import { DATA_PATH, URL_PATH } from "../../config";
+import { DATA_PATH, API_URL } from "../../config";
 
 class ImgContainer extends React.Component {
   state = {
@@ -10,7 +10,7 @@ class ImgContainer extends React.Component {
   };
 
   componentDidMount() {
-    fetch(URL_PATH + "product/homefurnishing/")
+    fetch(API_URL + "/product/homefurnishing/")
       .then((res) => res.json())
       .then((res) => {
         this.setState({
@@ -19,9 +19,10 @@ class ImgContainer extends React.Component {
       });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.buttonClick !== this.props.buttonClick) {
-      fetch(URL_PATH + `product/homefurnishing/?page=${this.props.buttonClick}`)
+  componentDidUpdate(prevProps) {
+    const { buttonClick } = this.props;
+    if (prevProps.buttonClick !== buttonClick) {
+      fetch(API_URL + `/product/homefurnishing/?page=${this.props.buttonClick}`)
         .then((res) => res.json())
         .then((res) => {
           this.setState({
