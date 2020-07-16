@@ -28,9 +28,10 @@ class Furnishing extends React.Component {
 
   render() {
     const { category, colorHandle, buttonClick } = this.state;
+    const { title } = this.props;
     return (
       <Wrapper>
-        <Title>홈퍼니싱 아이디어 더 보기</Title>
+        <Title>{title}</Title>
         {category.map((category, idx) => (
           <button
             className={`${
@@ -61,7 +62,7 @@ class Furnishing extends React.Component {
 export default Furnishing;
 
 const Wrapper = styled.div`
-  margin: 55px 0 0 150px;
+  margin: 55px 0 0 0;
   position: relative;
 
   .category-btn {
