@@ -62,6 +62,7 @@ const Container = styled.div`
     margin: 26px 37px 26px 37px;
     padding: 8px;
     border-radius: 40px;
+    cursor: pointer;
     &:hover {
       background-color: #dfdfdf;
       transition-property: background-color;
@@ -115,6 +116,7 @@ const ContainerInner = styled.div`
     .deilver {
       width: 22px;
       height: 16px;
+      cursor: pointer;
     }
     .person {
       width: 16px;
@@ -123,10 +125,12 @@ const ContainerInner = styled.div`
     .like {
       width: 17x;
       height: 15px;
+      cursor: pointer;
     }
     .basket {
       width: 20.56px;
       height: 16px;
+      cursor: pointer;
     }
   }
 `;
