@@ -9,16 +9,14 @@ class SideBarClickFurniture extends React.Component {
     return (
       <>
         <Container>
-          <Top>
-            <div
-              className="left_arrow_button_hover"
-              onClick={() => this.props.currentIdxHandler(0)}
-            >
-              <AiOutlineArrowLeft size="24" />
-            </div>
-          </Top>
+          <Top></Top>
           <Content>
-            <span className="all_product">가구</span>
+            <span
+              onClick={this.props.subCurrentIndexHandler}
+              className="all_product"
+            >
+              가구
+            </span>
             <ul className="first_ul">
               <li>
                 <span>전체 보기</span>
@@ -86,13 +84,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 480px;
   width: 480px;
-  height: 952px;
+  height: 100%;
   z-index: 3;
   background-color: white;
+  cursor: pointer;
 `;
 
 const Top = styled.div`
@@ -106,7 +106,6 @@ const Top = styled.div`
     justify-content: space-between;
     width: 210px;
     height: 92px;
-    /* background-color:red; */
     .grformclose_box {
       position: relative;
       right: 10px;
@@ -156,8 +155,8 @@ const Content = styled.div`
     flex-direction: column;
     justify-content: space-around;
     width: 259px;
-    /* height: 532px; */
     padding: 32px 0 32px 0;
+    /* border-left:1px solid black; */
     li {
       font-size: 14px;
       line-height: 24px;

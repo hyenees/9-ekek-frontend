@@ -18,6 +18,7 @@ class Main extends React.Component {
       sideBar: false,
       sideBarClick: false,
       currentIndex: 0,
+      subCurrentIndex: 0,
     };
   }
 
@@ -32,17 +33,29 @@ class Main extends React.Component {
   currentIdxHandler = (idx) => {
     this.setState({ currentIndex: idx });
   };
+
+  subCurrentIndexHandler = (idx) => {
+    this.setState({ subCurrentIndex: idx });
+  };
+
   render() {
     return (
       <>
         <Nav NavButtonHandler={this.NavButtonHandler} />
-        <SideBarOption sideBar={this.state.sideBar}>
-          <SideBar
-            NavButtonHandler={this.NavButtonHandler}
-            currentIndex={this.state.currentIndex}
-            currentIdxHandler={this.currentIdxHandler}
-          />
-        </SideBarOption>
+        {this.state.sideBar ? (
+          <SideBarOption>
+            <SideBar
+              sideBar={this.state.sideBar}
+              NavButtonHandler={this.NavButtonHandler}
+              currentIndex={this.state.currentIndex}
+              currentIdxHandler={this.currentIdxHandler}
+              subCurrentIndexHandler={this.subCurrentIndexHandler}
+            />
+          </SideBarOption>
+        ) : (
+          ""
+        )}
+        {this.state.subCurrentIndex !== 0 && <SideBarClickFurniture />}
         <Container>
           <img className="main_photo" src={main_photo} alt="main_photo"></img>
           <p className="main_photo_text">
@@ -67,13 +80,11 @@ const SideBarOption = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  /* width: 100%; */
-  width: ${(props) => (props.sideBar ? "480px" : "0")};
+  width: 100vw;
   overflow: ${(props) => (props.sideBar ? "" : "hidden")};
   height: 100%;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.15);
-  /* display: ${(props) => (props.sideBar ? "block" : "none")}; */
   transition: width 0.25s ease-in;
 `;
 

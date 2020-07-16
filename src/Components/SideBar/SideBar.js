@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { GrFormClose } from "react-icons/gr";
 import ikea from "../../Images/ikea.svg";
 import earth from "../../Images/earth.png";
@@ -10,12 +10,12 @@ class SideBar extends React.Component {
   render() {
     return (
       <>
-        <Container>
+        <Container width>
           <Top>
             <div className="grform_and_img_box">
               <div
-                className="grformclose_box"
                 onClick={this.props.NavButtonHandler}
+                className="grformclose_box"
               >
                 <GrFormClose size="24" />
               </div>
@@ -71,6 +71,7 @@ class SideBar extends React.Component {
             <SideBarClick
               currentIdxHandler={this.props.currentIdxHandler}
               NavButtonHandler={this.props.NavButtonHandler}
+              subCurrentIndexHandler={this.props.subCurrentIndexHandler}
             />
           )}
           <Bottom>
@@ -100,6 +101,10 @@ class SideBar extends React.Component {
     );
   }
 }
+const SideBarMove = keyframes`
+from{transform : translateX(-100%)}
+to{transform : translateX(0)}
+`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -108,9 +113,11 @@ const Container = styled.div`
   bottom: 0;
   left: 0;
   width: 480px;
+  overflow: ${(props) => (props.width ? "" : "hidden")};
   height: 952px;
   z-index: 3;
   background-color: white;
+  animation: ${SideBarMove} 0.25s ease-in-out;
 `;
 
 const Top = styled.div`
@@ -150,6 +157,11 @@ const Content = styled.div`
     justify-content: space-around;
     width: 300px;
     height: 305px;
+    animation:0.25s ease-in-out
+    animation-duration: 3s;
+    animation-name:sidebarmove;
+    cursor: pointer;
+}
     li {
       font-size: 14px;
       font-weight: 700;
@@ -164,6 +176,7 @@ const Content = styled.div`
         letter-spacing: -0.64px;
         line-height: 48px;
         color: #111111;
+        cursor: pointer;
       }
       .digital_showroom {
         font-size: 36px;
@@ -171,6 +184,7 @@ const Content = styled.div`
         letter-spacing: -0.64px;
         line-height: 48px;
         color: #111111;
+        cursor: pointer;
       }
     }
   }
@@ -245,5 +259,7 @@ const Bottom = styled.div`
       height: 15px;
     }
   }
+}
+
 `;
 export default SideBar;

@@ -3,17 +3,8 @@ import styled from "styled-components";
 import { GrFormClose } from "react-icons/gr";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import ikea from "../../Images/ikea.svg";
-import SideBarClickFurniture from "./SideBarClickFurniture";
 
 class SideBarClick extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      sideBar: false,
-      sideBarClick: false,
-      currentIndex: 0,
-    };
-  }
   render() {
     return (
       <>
@@ -22,7 +13,11 @@ class SideBarClick extends React.Component {
             <div className="grform_and_img_box">
               <div
                 className="grformclose_box"
-                onClick={this.props.NavButtonHandler}
+                onClick={() => {
+                  this.props.NavButtonHandler(0);
+                  this.props.currentIdxHandler(0);
+                  this.props.subCurrentIndexHandler(0);
+                }}
               >
                 <GrFormClose size="24" />
               </div>
@@ -30,7 +25,10 @@ class SideBarClick extends React.Component {
             </div>
             <div
               className="left_arrow_button_hover"
-              onClick={() => this.props.currentIdxHandler(0)}
+              onClick={() => {
+                this.props.currentIdxHandler(0);
+                this.props.subCurrentIndexHandler(0);
+              }}
             >
               <AiOutlineArrowLeft size="24" />
             </div>
@@ -39,7 +37,9 @@ class SideBarClick extends React.Component {
             <span className="all_product">모든 제품</span>
             <ul className="first_ul">
               <li>
-                <span>가구</span>
+                <span onClick={() => this.props.subCurrentIndexHandler(1)}>
+                  가구
+                </span>
               </li>
               <li>
                 <span>소파 & 암체어</span>
@@ -80,7 +80,6 @@ class SideBarClick extends React.Component {
             </ul>
           </Content>
         </Container>
-        <SideBarClickFurniture />
       </>
     );
   }
@@ -97,6 +96,7 @@ const Container = styled.div`
   height: 952px;
   z-index: 3;
   background-color: white;
+  cursor: pointer;
 `;
 
 const Top = styled.div`
