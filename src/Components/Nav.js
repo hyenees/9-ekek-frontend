@@ -9,6 +9,7 @@ import search from "../Images/search.png";
 import { IoIosMenu } from "react-icons/io";
 
 class Nav extends React.Component {
+  
   render() {
     return (
       <Container>
@@ -17,10 +18,12 @@ class Nav extends React.Component {
         </div>
         <ContainerInner>
           <div className="left_nav_align">
+            <Link to="/">
             <img
               class="ikea_logo"
               src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg"
             />
+            </Link>
             <ul className="nav_text_box">
               <li>
                 <a herf="https://www.ikea.com/kr/ko/cat/products-products/">
@@ -32,7 +35,7 @@ class Nav extends React.Component {
               </li>
             </ul>
           </div>
-          <img className="search" src={search} alt="logo" />
+         <img className="search" src={search} alt="logo" />
           <Input />
           <div className="nav_right_icon_box">
             <img className="deilver" src={deilver} alt="logo" />
@@ -40,7 +43,7 @@ class Nav extends React.Component {
               <img className="person" src={person} alt="logo" />
             </Link>
             <img className="like" src={like} alt="logo" />
-            <img className="basket" src={basket} alt="logo" />
+            <Link to="/cart"><img className="basket" src={basket} alt="logo" /></Link>
           </div>
         </ContainerInner>
       </Container>

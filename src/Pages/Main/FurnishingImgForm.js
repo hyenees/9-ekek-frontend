@@ -1,6 +1,7 @@
 import React from "react";
+import { withRouter } from 'react-router-dom';
 import "./FurnishingImgForm.scss";
-import arrowIcon from "./arrowIcon.png";
+import arrowIcon from "../../Images/arrowIcon.png";
 
 class FurnishingImgForm extends React.Component {
   state = {
@@ -34,6 +35,10 @@ class FurnishingImgForm extends React.Component {
     });
   };
 
+  imageButtonClickHandle = (id) => {
+    this.props.history.push(`/products/${id}`);
+  }
+
   render() {
     const { furnishingInfo } = this.props;
     const { dotDisplay, articleDisplay } = this.state;
@@ -58,6 +63,7 @@ class FurnishingImgForm extends React.Component {
               }`}
               onMouseOver={() => this.articleShow(products.id)}
               onMouseLeave={() => this.articleHide()}
+              onClick={() => this.imageButtonClickHandle(products.product_id)}
               style={
                 ({ position: "absoulute" },
                 {
@@ -110,4 +116,4 @@ class FurnishingImgForm extends React.Component {
   }
 }
 
-export default FurnishingImgForm;
+export default withRouter(FurnishingImgForm);
