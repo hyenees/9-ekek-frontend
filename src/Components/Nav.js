@@ -1,6 +1,7 @@
 import React from "react";
+import { withRouter } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import deilver from "../Images/deilver.png";
 import person from "../Images/person.png";
 import like from "../Images/like.png";
@@ -9,9 +10,23 @@ import search from "../Images/search.png";
 import { IoIosMenu } from "react-icons/io";
 
 class Nav extends React.Component {
-  
+    state = {
+        inputClick : false,
+        searchWord : "",
+        }
+
+
+    searchHandler =  (search) => {
+    this.props.history.push(`/product/search/${search}`)
+    }
+
+    gotoSearch = (e) => {
+    this.props.history.push(`/product/search/${e.target.innerText}`)
+    }
+    
   render() {
     return (
+        <>
       <Container>
         <div className="ioio_menu_box" onClick={this.props.NavButtonHandler}>
           <IoIosMenu size="24" />
@@ -36,7 +51,8 @@ class Nav extends React.Component {
             </ul>
           </div>
          <img className="search" src={search} alt="logo" />
-          <Input />
+         <Input onClick={()=>this.setState({
+                              inputClick : !this.state.inputClick })}/>
           <div className="nav_right_icon_box">
             <img className="deilver" src={deilver} alt="logo" />
             <Link to="/login">
@@ -47,11 +63,65 @@ class Nav extends React.Component {
           </div>
         </ContainerInner>
       </Container>
+           {this.state.inputClick ?
+            <SearchContainer>
+              <SearchBox>
+              <div className="search">
+                <div>
+                  <div className="img-hover">
+                  <img 
+                  onClick={()=>{this.setState({inputClick : !this.state.inputClick})}}
+                  src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' width='24' fill='%23111'%3E%3Cpath fill-rule='evenodd' d='M17.597 5l-5.592 5.592L6.414 5 5 6.415l5.591 5.591L5 17.597l1.414 1.414 5.591-5.592 5.592 5.592 1.414-1.414-5.592-5.591 5.592-5.591z'/%3E%3C/svg%3E" alt="" />
+                  </div>
+                </div >
+                <input value={this.state.searchWord} placeholder="검색어 입력" onChange={(e)=>this.setState({searchWord : e.target.value})}/>
+                {this.state.searchWord === "" ? null
+                :
+                <>
+                <div className="img-hover">
+                  <img
+                  onClick={()=>this.setState({searchWord : ""})} 
+                  className="btns" src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e2e2e2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 10.6L15.6 7 17 8.4 13.4 12l3.6 3.6-1.4 1.4-3.6-3.6L8.4 17 7 15.6l3.6-3.6L7 8.4 8.4 7l3.6 3.6z' fill-rule='evenodd' clip-rule='evenodd' fill='%23666'/%3E%3C/svg%3E" alt="" />
+                </div>
+                <div className="img-hover">
+                  <img 
+                  onClick={()=>this.searchHandler(this.state.searchWord)}
+                  className="btns" src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' width='24' fill='%23111'%3E%3Cpath d='M12.29 18.37l1.42 1.4 7.7-7.77-7.71-7.64-1.4 1.42L17.57 11H4v2h13.6l-5.31 5.37z'/%3E%3C/svg%3E" alt=""/>
+                </div>
+                </>
+                }
+                
+              </div>
+              <div className="search-list">
+                <ol>
+                  <li onClick={this.gotoSearch}>
+                    <img 
+                         src="data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='17' fill='%23484848' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6.5 11a4.5 4.5 0 110-9 4.5 4.5 0 010 9zm4.968-.307a6.5 6.5 0 10-1.514 1.315l3.996 3.996 1.414-1.414-3.896-3.897z'/%3E%3C/svg%3E" alt=""/>
+                    책상
+                  </li>
+                  <li onClick={this.gotoSearch}>
+                    <img src="data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='17' fill='%23484848' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6.5 11a4.5 4.5 0 110-9 4.5 4.5 0 010 9zm4.968-.307a6.5 6.5 0 10-1.514 1.315l3.996 3.996 1.414-1.414-3.896-3.897z'/%3E%3C/svg%3E" alt=""/>
+                    의자
+                    </li>
+                  <li onClick={this.gotoSearch}>
+                    <img src="data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='17' fill='%23484848' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6.5 11a4.5 4.5 0 110-9 4.5 4.5 0 010 9zm4.968-.307a6.5 6.5 0 10-1.514 1.315l3.996 3.996 1.414-1.414-3.896-3.897z'/%3E%3C/svg%3E" alt=""/>
+                    수납장
+                  </li>
+                  <li onClick={this.gotoSearch}>
+                    <img src="data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='17' fill='%23484848' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6.5 11a4.5 4.5 0 110-9 4.5 4.5 0 010 9zm4.968-.307a6.5 6.5 0 10-1.514 1.315l3.996 3.996 1.414-1.414-3.896-3.897z'/%3E%3C/svg%3E" alt=""/>
+                    선반
+                  </li>
+                </ol>
+              </div>
+            </SearchBox>
+            </SearchContainer>
+            :null}
+            </>
     );
   }
 }
 
-export default Nav;
+export default withRouter(Nav);
 
 const Container = styled.div`
   display: flex;
@@ -152,3 +222,116 @@ const Input = styled.input.attrs({
   background-color: #f5f5f5;
   border-radius: 50em;
 `;
+
+
+const slideToBottom = keyframes`
+   0%{
+        transform : translateY(-100%)
+    }
+    100%{
+        transform : translateY(0)
+    }
+`
+
+const SearchContainer = styled.div`
+  position: fixed;
+  z-index : 500;
+  width :100vw;
+  height :100vw;
+  background: rgba(0,0,0,.15);
+
+`;
+
+const SearchBox = styled.div`
+  position: fixed;
+  z-index:500;
+  top : 0;
+  left : 0;
+  width : 100vw;
+  background : #ffffff;
+  animation : ${slideToBottom} 0.3s ease forwards;
+
+  .search{
+    display : flex;
+    align-items : center;
+    width : 100%;
+    height : 92px;
+    padding-right : 40px;
+    border-bottom : 1px solid #DFDFDF;
+   
+    &:before{
+      content : "";
+      position : absolute;
+      top : 0;
+     
+    }
+    div{
+      display: flex;
+      justify-content: center;
+      align-items : center;
+      width : 140px;
+      height : 100%;
+      margin-right : 20px;
+    }
+
+    .img-hover{
+        position : relative;
+        width : 40px;
+        height : 40px;
+        margin :0;
+        border-radius : 50%;
+
+        &:hover{
+          background : #e2e2e2;
+        }
+
+        img{
+          cursor : pointer;
+          width : 24px;
+          height : 24px;
+        }
+    }
+
+    input{ 
+      display: block;
+      width:100%;
+      height :47.61px;
+      padding : 12px 0;;
+      border: none;
+      font-size : 16px;
+      line-height : 24px;
+    }
+  }
+
+  .search-list{
+    width : 100%;
+    /* height : 500px; */
+    padding : 40px 40px 80px 145px; 
+    color : #111111;
+  
+    ol{
+      li{
+      display : flex;
+      align-items : center;
+      margin-bottom :16px;
+      font-size : 16px;
+      font-weight : 700;
+      line-height: 24px;
+      cursor: pointer;
+
+
+      &:hover{
+        text-decoration : underline 
+      }
+
+      
+      img{
+        padding-right : 20px;
+      }
+    }
+    }
+    
+  }
+  
+
+`

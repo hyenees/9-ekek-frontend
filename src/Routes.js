@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./Pages/Main/Main";
 import Login from "./Pages/Account/Login";
 import Signup from "./Pages/Account/Signup";
-import ProductList from "./Pages/Products/ProductList";
+import ProductList from "./Pages/Products/ProductList ";
 import ProductsDetails from "./Pages/Products/ProductDetails";
 import Cart from "./Pages/Cart/Cart";
+import ProductSearch from "./Pages/Products/ProductSearch";
 import SideBarClick from "./Components/SideBar/SideBarClick";
 import SideBarClickFurniture from "./Components/SideBar/SideBarClickFurniture";
 import Payment from "./Pages/Payment/Payment";
@@ -20,6 +21,7 @@ class Routes extends React.Component {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/products" component={ProductList} />
           <Route exact path="/products/:id" component={ProductsDetails} />
+          <Route exact path="/product/search/:item" component={ProductSearch} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/payment" component={Payment}/>
         </Switch>
