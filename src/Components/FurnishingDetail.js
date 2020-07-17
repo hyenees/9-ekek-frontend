@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Furnishing from "../Pages/Main/Furnishing";
-import reactRouterDom from "react-router-dom";
 import { API_URL } from "../config";
 
 class FurnishingDetail extends React.Component {
@@ -20,7 +19,7 @@ class FurnishingDetail extends React.Component {
             src={
               "https://www.ikea.com/ext/ingkadam/m/425c69d8aa99e148/original/PH156736-crop001.jpg?f=m"
             }
-            alt={"sample"}
+            alt="sample"
           />
         </MainContents>
         <Furnishing title="더 많은 갤러리 보기" />
@@ -49,10 +48,10 @@ const CategoryInfo = styled.div`
 
   .text {
     cursor: pointer;
-  }
 
-  .text:hover {
-    text-decoration: underline;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
