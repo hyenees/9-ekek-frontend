@@ -12,7 +12,6 @@ const { Kakao } = window;
 Kakao.init(jsKey);
 
 function Login({ history }) {
-
   const [focus, setFocus] = useState({
     email: false,
     password: false,
@@ -53,8 +52,8 @@ function Login({ history }) {
 
     setBorderColor({
       ...borderColor,
-      [name] : valid[name] === null || valid[name] ? "bottomBlue" : "bottomRed",
-    })
+      [name]: valid[name] === null || valid[name] ? "bottomBlue" : "bottomRed",
+    });
   };
 
   const inputBlur = (e) => {
@@ -105,28 +104,28 @@ function Login({ history }) {
   };
 
   const borderColorChange = (name) => {
-    switch(borderColor[name]){
-      case null :
-        return "1px solid #929292"
-      case "bottomRed" :
-        return "1px solid #e00751"
-      case "bottomBlue" :
-        return "1px solid #0058a3"
+    switch (borderColor[name]) {
+      case null:
+        return "1px solid #929292";
+      case "bottomRed":
+        return "1px solid #e00751";
+      case "bottomBlue":
+        return "1px solid #0058a3";
       default:
-        return ""
+        return "";
     }
-  }
+  };
 
   const borderBoxStyle = (name) => {
-    switch(borderColor[name]){
-      case "bottomRed" :
-        return "0 1px 0 #e00751"
-      case "bottomBlue" :
-        return "0 1px 0 #0058a3"
+    switch (borderColor[name]) {
+      case "bottomRed":
+        return "0 1px 0 #e00751";
+      case "bottomBlue":
+        return "0 1px 0 #0058a3";
       default:
-        return ""
+        return "";
     }
-  }
+  };
 
   const loginClick = () => {
     axios({
@@ -187,7 +186,8 @@ function Login({ history }) {
             </p>
           </div>
           <div className="footer-text">
-            <span>IKEA.kr</span>&nbsp;-&nbsp;<span className="underline">개인정보처리방침</span>
+            <span>IKEA.kr</span>&nbsp;-&nbsp;
+            <span className="underline">개인정보처리방침</span>
             <div>© Inter IKEA Systems B.V. 1999-2020</div>
           </div>
         </Box>
@@ -210,6 +210,9 @@ function Login({ history }) {
             </InputBox>
             <InputBox password>
               <Input
+                type="password"
+                name="password"
+                value={value.password}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
                 onChange={onChangePassword}
@@ -220,10 +223,13 @@ function Login({ history }) {
               <Label fontSize={fontSize.password}>비밀번호</Label>
             </InputBox>
             <span>비밀번호 찾기</span>
-            <Button onClick = {loginClick}>로그인</Button>
+
+            <Button onClick={loginClick}>로그인</Button>
           </LoginBox>
-          <Button gray onClick={()=>history.push("./signup")}>회원가입</Button>
-          <img src={kakao} alt="kakao" onClick={kakaoClick}/>
+          <Button gray onClick={() => history.push("./signup")}>
+            회원가입
+          </Button>
+          <img src={kakao} alt="kakao" onClick={kakaoClick} />
         </div>
       </Container>
     </Wrapper>
