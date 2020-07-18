@@ -7,8 +7,6 @@ import ProductList from "./Pages/Products/ProductList ";
 import ProductsDetails from "./Pages/Products/ProductDetails";
 import Cart from "./Pages/Cart/Cart";
 import ProductSearch from "./Pages/Products/ProductSearch";
-import SideBarClick from "./Components/SideBar/SideBarClick";
-import SideBarClickFurniture from "./Components/SideBar/SideBarClickFurniture";
 import Payment from "./Pages/Payment/Payment";
 
 class Routes extends React.Component {

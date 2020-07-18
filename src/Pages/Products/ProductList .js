@@ -115,6 +115,7 @@ class ProductList extends React.Component {
           <CategoryContainer>
             {subCategoryList.map((subCategory, idx) => (
               <article
+                key={idx}
                 onMouseOver={() => {
                   this.setState({
                     underLine: idx,
@@ -126,9 +127,8 @@ class ProductList extends React.Component {
                   });
                 }}
               >
-                <img key={idx} src={subCategory.image} alt={subCategory.name} />
+                <img src={subCategory.image} alt={subCategory.name} />
                 <p
-                  key={idx}
                   className={`${
                     underLine === idx ? "show-underline" : "none-underline"
                   }`}

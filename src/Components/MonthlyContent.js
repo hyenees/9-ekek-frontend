@@ -8,10 +8,10 @@ class MonthlyContent extends React.Component {
       <MonthlyContainer>
         <img className="month_image" src={this.props.MonthlyData.images} />
         <ul>
-          <il className="month_title">{this.props.MonthlyData.name}</il>
-          <il className="month_product_info">
+          <li className="month_title">{this.props.MonthlyData.name}</li>
+          <li className="month_product_info">
             {this.props.MonthlyData.category},{this.props.MonthlyData.size}
-          </il>
+          </li>
           <li className="month_price_dollar">
             ￦{this.props.MonthlyData.price}
           </li>

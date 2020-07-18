@@ -22,17 +22,19 @@ class ProductSearch extends React.Component {
     underLine: "",
     clicked: "",
     sortProductList: null,
+    inputClick: false,
   };
 
   componentDidMount() {
-      fetch(`${API_URL}product/search/?user_input=${this.props.match.params.item}`)
-      .then(res=>res.json())
-      .then(res=>{
-        console.log(res.search_result.data)
+    fetch(
+      `${API_URL}/product/search/?user_input=${this.props.match.params.item}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
         this.setState({
-          productList : res.search_result.data
-        })
-      }) 
+          productList: res.search_result.data,
+        });
+      });
   }
 
   componentDidUpdate(_, prevState) {
@@ -93,7 +95,6 @@ class ProductSearch extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const { subCategoryList, underLine, clicked, productList } = this.state;
 
     return (
