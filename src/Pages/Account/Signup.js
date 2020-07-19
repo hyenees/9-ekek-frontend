@@ -89,7 +89,10 @@ function Signup({ history }) {
 
     setBorderColor({
       ...borderColor,
-      [name]: valid[name] === null || valid[name] ? "bottomBlue" : "bottomRed",
+      [name]:
+        valid[name] === null || valid[name] === true
+          ? "bottomBlue"
+          : "bottomRed",
     });
   };
 
@@ -103,7 +106,7 @@ function Signup({ history }) {
 
     setBorderColor({
       ...borderColor,
-      [name]: valid[name] ? null : "bottomRed",
+      [name]: valid[name] === true ? null : "bottomRed",
     });
 
     setFontSize({
@@ -112,7 +115,7 @@ function Signup({ history }) {
     });
   };
 
-  const onChangeHandler = (e) => {
+  const onChangeName = (e) => {
     const { name, value } = e.target;
 
     setSignupValue({
@@ -123,10 +126,75 @@ function Signup({ history }) {
     setValid({
       ...valid,
       name: value.length > 0 && true,
+    });
+  };
+
+  const onChangeBirth = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
       birth: birthReg.test(value) ? true : false,
+    });
+  };
+
+  const onChangePhoneNumber = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
       phoneNumber: value.length === 11 ? true : false,
+    });
+  };
+
+  const onChangeCertifiNumber = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
       certifiNumber: value.length === 6 ? true : false,
+    });
+  };
+
+  const onChangeEmail = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
       email: value.includes("@" && ".") ? true : false,
+    });
+  };
+
+  const onChangePassword = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
       password: passwordReg.test(value) ? true : false,
     });
   };
@@ -310,7 +378,7 @@ function Signup({ history }) {
             value={signupValue.name}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangeName}
             borderColor={borderColorChange("name")}
             borderbox={borderBoxStyle("name")}
           />
@@ -322,7 +390,7 @@ function Signup({ history }) {
             value={signupValue.birth}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangeBirth}
             borderColor={borderColorChange("birth")}
             borderbox={borderBoxStyle("birth")}
           />
@@ -334,7 +402,7 @@ function Signup({ history }) {
             value={signupValue.phoneNumber}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangePhoneNumber}
             borderColor={borderColorChange("phoneNumber")}
             borderbox={borderBoxStyle("phoneNumber")}
           />
@@ -347,7 +415,7 @@ function Signup({ history }) {
             value={signupValue.certifiNumber}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangeCertifiNumber}
             borderColor={borderColorChange("certifiNumber")}
             borderbox={borderBoxStyle("certifiNumber")}
           />
@@ -366,7 +434,7 @@ function Signup({ history }) {
             value={signupValue.email}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangeEmail}
             borderColor={borderColorChange("email")}
             borderbox={borderBoxStyle("email")}
           />
@@ -379,7 +447,7 @@ function Signup({ history }) {
             value={signupValue.password}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangePassword}
             borderColor={borderColorChange("password")}
             borderbox={borderBoxStyle("password")}
           />

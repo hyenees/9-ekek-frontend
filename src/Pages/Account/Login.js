@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { FiArrowLeft } from "react-icons/fi";
@@ -75,15 +75,31 @@ function Login({ history }) {
     });
   };
 
-  const onChangeHandle = (e) => {
+  const onChangeEmail = (e) => {
     const { name, value } = e.target;
-    setValid({
-      email: value.includes("@" && ".") ? true : false,
-      password: reg.test(value) ? true : false,
-    });
+
     setAccountValue({
       ...accountValue,
       [name]: value,
+    });
+
+    setValid({
+      ...valid,
+      email: value.includes("@" && ".") ? true : false,
+    });
+  };
+
+  const onChangePassword = (e) => {
+    const { name, value } = e.target;
+
+    setAccountValue({
+      ...accountValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
+      password: reg.test(value) ? true : false,
     });
   };
 
@@ -188,7 +204,7 @@ function Login({ history }) {
                 value={accountValue.email}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
-                onChange={onChangeHandle}
+                onChange={onChangeEmail}
                 fontSize={fontSize.email}
                 borderColor={borderColorChange("email")}
                 borderbox={borderBoxStyle("email")}
@@ -202,7 +218,7 @@ function Login({ history }) {
                 value={accountValue.password}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
-                onChange={onChangeHandle}
+                onChange={onChangePassword}
                 fontSize={fontSize}
                 borderColor={borderColorChange("password")}
                 borderbox={borderBoxStyle("password")}
