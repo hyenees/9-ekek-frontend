@@ -158,7 +158,7 @@ const Content = styled.div`
     justify-content: space-around;
     width: 300px;
     height: 305px;
-    animation:0.25s ease-in-out
+    animation:0.25s ease-in-out;
     animation-duration: 3s;
     animation-name:sidebarmove;
     cursor: pointer;
