@@ -8,6 +8,7 @@ import kakao from "../../Images/kakao_login_large_wide.png";
 
 const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$/;
 const { Kakao } = window;
+
 Kakao.init(jsKey);
 
 function Login({ history }) {

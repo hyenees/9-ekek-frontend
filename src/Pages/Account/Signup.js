@@ -233,7 +233,6 @@ function Signup({ history }) {
 
   const sendNumber = () => {
     valid.phoneNumber && setShow(true);
-
     axios({
       method: "post",
       url: `${API_URL}/account/sms`,
@@ -646,7 +645,7 @@ const FormBox = styled.div`
     `
         display : block;
     `}
-    
+
     .timer {
     position: absolute;
     top: 28px;
