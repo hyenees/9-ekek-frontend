@@ -61,7 +61,7 @@ class Furnishing extends React.Component {
 export default Furnishing;
 
 const Wrapper = styled.div`
-  margin: 55px 0 0 150px;
+  margin: 55px 0 0 0;
   position: relative;
 
   .category-btn {

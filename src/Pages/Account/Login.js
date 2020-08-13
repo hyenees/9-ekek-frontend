@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 import { FiArrowLeft } from "react-icons/fi";
 import { jsKey } from "../../jsKey";
@@ -130,14 +129,15 @@ function Login({ history }) {
   };
 
   const loginClick = () => {
-    axios({
-      method: "POST",
-      url: `${API_URL}/user/login`,
-      data: {
-        email: value.email,
-        password: value.password,
-      },
-    }).then((res) => localStorage.setItem("access_token", res.token));
+    fetch(`${API_URL}/account/signin`, {
+      method: "post",
+      body: JSON.stringify({
+        email: accountValue.email,
+        password: accountValue.password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => localStorage.setItem("access_token", res.access_token));
     history.push("./");
   };
 
@@ -145,8 +145,8 @@ function Login({ history }) {
     // Open login popup.
     Kakao.Auth.loginForm({
       success(authObj) {
-        fetch(`${URL}/user/kakaologin`, {
-          method: "POST",
+        fetch(`${API_URL}/account/kakao`, {
+          method: "post",
           headers: {
             "Content-Type": "application/json",
             Authorization: authObj.access_token,
@@ -155,6 +155,8 @@ function Login({ history }) {
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
+            localStorage.setItem("access_token", res.token);
+            history.push("./");
           })
           .catch((error) => {
             console.log(error);
