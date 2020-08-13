@@ -8,6 +8,7 @@ import kakao from "../../Images/kakao_login_large_wide.png";
 
 const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$/;
 const { Kakao } = window;
+
 Kakao.init(jsKey);
 
 function Login({ history }) {
@@ -75,15 +76,31 @@ function Login({ history }) {
     });
   };
 
-  const onChangeHandle = (e) => {
+  const onChangeEmail = (e) => {
     const { name, value } = e.target;
-    setValid({
-      email: value.includes("@" && ".") ? true : false,
-      password: reg.test(value) ? true : false,
-    });
+
     setAccountValue({
       ...accountValue,
       [name]: value,
+    });
+
+    setValid({
+      ...valid,
+      email: value.includes("@" && ".") ? true : false,
+    });
+  };
+
+  const onChangePassword = (e) => {
+    const { name, value } = e.target;
+
+    setAccountValue({
+      ...accountValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
+      password: reg.test(value) ? true : false,
     });
   };
 
@@ -128,7 +145,6 @@ function Login({ history }) {
     // Open login popup.
     Kakao.Auth.loginForm({
       success(authObj) {
-        console.log(authObj);
         fetch(`${API_URL}/account/kakao`, {
           method: "post",
           headers: {
@@ -189,7 +205,7 @@ function Login({ history }) {
                 value={accountValue.email}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
-                onChange={onChangeHandle}
+                onChange={onChangeEmail}
                 fontSize={fontSize.email}
                 borderColor={borderColorChange("email")}
                 borderbox={borderBoxStyle("email")}
@@ -203,7 +219,7 @@ function Login({ history }) {
                 value={accountValue.password}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
-                onChange={onChangeHandle}
+                onChange={onChangePassword}
                 fontSize={fontSize}
                 borderColor={borderColorChange("password")}
                 borderbox={borderBoxStyle("password")}

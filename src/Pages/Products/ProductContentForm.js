@@ -1,5 +1,6 @@
 import React from "react";
-import {withRouter} from "react-router-dom";
+
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 class ProductContentForm extends React.Component {
@@ -9,8 +10,7 @@ class ProductContentForm extends React.Component {
 
   imageButtonClickHandle = (id) => {
     this.props.history.push(`/products/${id}`);
-  }
-
+  };
 
   render() {
     const {

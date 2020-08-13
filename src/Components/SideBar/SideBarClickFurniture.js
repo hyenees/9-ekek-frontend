@@ -23,7 +23,9 @@ class SideBarClickFurniture extends React.Component {
                 <span>전체 보기</span>
               </li>
               <li className="li_margin">
-               <Link to="/products"><span>식탁/책상</span></Link>
+                <Link to="/products">
+                  <span>식탁/책상</span>
+                </Link>
               </li>
               <li>
                 <span>책장/선반유닛</span>

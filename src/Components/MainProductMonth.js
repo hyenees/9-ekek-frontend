@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import MonthlyContent from "./MonthlyContent";
-import {API_URL} from '../config'
+
+import { API_URL } from "../config";
 
 class MainProductMonth extends React.Component {
   state = { monthlyProduct: [] };
@@ -9,11 +10,9 @@ class MainProductMonth extends React.Component {
     fetch(`${API_URL}/product/thismonthproduct`)
       .then((res) => res.json())
       .then((res) =>
-        this.setState(
-          {
-            monthlyProduct: res.data,
-          },
-        )
+        this.setState({
+          monthlyProduct: res.data,
+        })
       );
   }
 

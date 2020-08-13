@@ -114,7 +114,8 @@ const Container = styled.div`
   left: 0;
   width: 480px;
   overflow: ${(props) => (props.setOverflow ? "" : "hidden")};
-  height: 100vh;
+
+  height: 952px;
   z-index: 3;
   background-color: white;
   animation: ${SideBarMove} 0.25s ease-in-out;

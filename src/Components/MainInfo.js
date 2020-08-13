@@ -8,11 +8,9 @@ class MainInfo extends React.Component {
     fetch("http://10.58.5.220:8000/product/importantinformation")
       .then((res) => res.json())
       .then((res) =>
-        this.setState(
-          {
-            mainInfo: res.data,
-          },
-        )
+        this.setState({
+          mainInfo: res.data,
+        })
       );
   }
 

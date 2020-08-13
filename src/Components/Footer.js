@@ -220,7 +220,7 @@ const ContainerInner = styled.div`
   justify-content: space-between;
   height: 435px;
   margin: 0 auto;
-  margin:20px 100px 0px 200px;
+  margin: 20px 100px 0px 200px;
   .ikea_family {
     margin: 0px 0px 10px;
     font-size: 22px;

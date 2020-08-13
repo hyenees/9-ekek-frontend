@@ -8,7 +8,6 @@ import MainInfo from "../../Components/MainInfo";
 import Furnishing from "../../Pages/Main/Furnishing";
 import main_photo from "../../Images/main_photo.png";
 
-
 class Main extends React.Component {
   render() {
     return (
@@ -35,9 +34,9 @@ class Main extends React.Component {
 const Container = styled.div`
   width: 90.5%;
   height: 100%;
-  padding : 0 40px 0 20px;
-  margin : 60px 20.5px 0 auto;
-  
+
+  padding: 0 40px 0 20px;
+  margin: 60px 20.5px 0 auto;
 
   .main_photo {
     width: 100%;

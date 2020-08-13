@@ -63,13 +63,17 @@ function Signup({ history }) {
   const [result, setResult] = useState("");
   const [timer, setTimer] = useState(45);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (show) {
-      const time = timer > 0 && setInterval(()=> {setTimer(timer - 1)}, 1000)
+      const time =
+        timer > 0 &&
+        setInterval(() => {
+          setTimer(timer - 1);
+        }, 1000);
       return () => clearInterval(time);
     }
-  },[timer, show])
-  
+  }, [timer, show]);
+
   const inputFocus = (e) => {
     const { name } = e.target;
 
@@ -85,8 +89,12 @@ function Signup({ history }) {
 
     setBorderColor({
       ...borderColor,
-      [name]: (valid[name] === null || valid[name]) ? "bottomBlue" : "bottomRed",
-    })
+
+      [name]:
+        valid[name] === null || valid[name] === true
+          ? "bottomBlue"
+          : "bottomRed",
+    });
   };
 
   const inputBlur = (e) => {
@@ -99,16 +107,16 @@ function Signup({ history }) {
 
     setBorderColor({
       ...borderColor,
-      [name]: valid[name] ? null : "bottomRed",
+      [name]: valid[name] === true ? null : "bottomRed",
     });
 
     setFontSize({
       ...fontSize,
       [name]: signupValue[name].length > 0 ? "small" : "big",
-    })
+    });
   };
 
-  const onChangeHandler = (e) => {
+  const onChangeName = (e) => {
     const { name, value } = e.target;
 
     setSignupValue({
@@ -119,26 +127,91 @@ function Signup({ history }) {
     setValid({
       ...valid,
       name: value.length > 0 && true,
+    });
+  };
+
+  const onChangeBirth = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
       birth: birthReg.test(value) ? true : false,
+    });
+  };
+
+  const onChangePhoneNumber = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
       phoneNumber: value.length === 11 ? true : false,
+    });
+  };
+
+  const onChangeCertifiNumber = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
       certifiNumber: value.length === 6 ? true : false,
+    });
+  };
+
+  const onChangeEmail = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
       email: value.includes("@" && ".") ? true : false,
+    });
+  };
+
+  const onChangePassword = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
       password: passwordReg.test(value) ? true : false,
     });
   };
 
   const borderColorChange = (name) => {
-    switch(borderColor[name]){
-      case null :
-        return "1px solid #929292"
-      case "bottomRed" :
-        return "1px solid #e00751"
-      case "bottomBlue" :
-        return "1px solid #0058a3"
+    switch (borderColor[name]) {
+      case null:
+        return "1px solid #929292";
+      case "bottomRed":
+        return "1px solid #e00751";
+      case "bottomBlue":
+        return "1px solid #0058a3";
       default:
         return "";
     }
-  }
+  };
 
   const borderBoxStyle = (name) => {
     switch (borderColor[name]) {
@@ -149,8 +222,8 @@ function Signup({ history }) {
       default:
         return "";
     }
-  }
-  
+  };
+
   const handleInputRadio = (e) => {
     setInputToggle({
       ...inputToggle,
@@ -161,12 +234,12 @@ function Signup({ history }) {
 
   const sendNumber = () => {
     valid.phoneNumber && setShow(true);
-    
-    axios({ 
+
+    axios({
       method: "post",
       url: `${API_URL}/account/sms`,
       data: {
-        mobile : signupValue.phoneNumber,
+        mobile: signupValue.phoneNumber,
       },
     });
   };
@@ -176,16 +249,17 @@ function Signup({ history }) {
       method: "post",
       url: `${API_URL}/account/check`,
       data: {
-        mobile : signupValue.phoneNumber,
-        code : signupValue.certifiNumber,
+        mobile: signupValue.phoneNumber,
+        code: signupValue.certifiNumber,
       },
-    }).then((res) => {
-      setResult(res.data.message);
     })
-    .catch(error => {
-        console.log(error)
-        alert("잘못된 인증번호입니다.")
+      .then((res) => {
+        setResult(res.data.message);
       })
+      .catch((error) => {
+        console.log(error);
+        alert("잘못된 인증번호입니다.");
+      });
   };
 
   const signupClick = () => {
@@ -305,7 +379,7 @@ function Signup({ history }) {
             value={signupValue.name}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangeName}
             borderColor={borderColorChange("name")}
             borderbox={borderBoxStyle("name")}
           />
@@ -317,7 +391,7 @@ function Signup({ history }) {
             value={signupValue.birth}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangeBirth}
             borderColor={borderColorChange("birth")}
             borderbox={borderBoxStyle("birth")}
           />
@@ -329,7 +403,7 @@ function Signup({ history }) {
             value={signupValue.phoneNumber}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangePhoneNumber}
             borderColor={borderColorChange("phoneNumber")}
             borderbox={borderBoxStyle("phoneNumber")}
           />
@@ -342,13 +416,18 @@ function Signup({ history }) {
             value={signupValue.certifiNumber}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangeCertifiNumber}
             borderColor={borderColorChange("certifiNumber")}
             borderbox={borderBoxStyle("certifiNumber")}
           />
-           <div className="success-msg">{result === "SUCCESS" ? "인증되었습니다." : ""}</div>
+          <div className="success-msg">
+            {result === "SUCCESS" ? "인증되었습니다." : ""}
+          </div>
           <Label fontSize={fontSize.certifiNumber}>인증번호</Label>
-          <span className="timer">00:{timer < 10 ? `0${timer}` : timer}</span><button onClick={checkCertifiNum} className="check-btn">확인</button>
+          <span className="timer">00:{timer < 10 ? `0${timer}` : timer}</span>
+          <button onClick={checkCertifiNum} className="check-btn">
+            확인
+          </button>
         </FormBox>
         <FormBox>
           <Input
@@ -356,7 +435,7 @@ function Signup({ history }) {
             value={signupValue.email}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangeEmail}
             borderColor={borderColorChange("email")}
             borderbox={borderBoxStyle("email")}
           />
@@ -369,7 +448,7 @@ function Signup({ history }) {
             value={signupValue.password}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeHandler}
+            onChange={onChangePassword}
             borderColor={borderColorChange("password")}
             borderbox={borderBoxStyle("password")}
           />
@@ -568,35 +647,35 @@ const FormBox = styled.div`
     `
         display : block;
     `}
-    
-    .timer{
-      position : absolute;
-      top: 28px;
-      right : 38px;
-      color : #e00751;
-      font-weight: 700;
-    }
 
-    button {
-      position : absolute;
-      top: 26px;
-      right : 0;
-      background: none;
-      border: none;
-      font-size: 14px;
-      font-weight: 700;
-      font-family: "NotoSansBold";
-      color: #0058a3;
-      }
 
-    .success-msg{
-      position: absolute;
-      top: 55px;
-      color : #e00751;
-      font-weight: 700;
-      font-size : 14px;
-    }
+    .timer {
+    position: absolute;
+    top: 28px;
+    right: 38px;
+    color: #e00751;
+    font-weight: 700;
+  }
 
+  button {
+    position: absolute;
+    top: 26px;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "NotoSansBold";
+    color: #0058a3;
+  }
+
+  .success-msg {
+    position: absolute;
+    top: 55px;
+    color: #e00751;
+    font-weight: 700;
+    font-size: 14px;
+  }
 `;
 
 const Input = styled.input`
@@ -606,10 +685,9 @@ const Input = styled.input`
   border: none;
   font-size: 16px;
   line-height: 24px;
-  border-bottom: ${(props) =>
-    props.borderColor};
-  box-shadow: ${(props) =>
-    props.borderbox};
+
+  border-bottom: ${(props) => props.borderColor};
+  box-shadow: ${(props) => props.borderbox};
 `;
 
 const Label = styled.label`
