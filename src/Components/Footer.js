@@ -168,26 +168,29 @@ class Footer extends React.Component {
   }
 }
 
+export default Footer;
+
 const Container = styled.div`
   width: 100%;
   height: 835px;
   margin: 60px 0px 0px 0px;
   padding: 60px 0px 0px 0px;
-  background:#F5F5F5;
+  background: #f5f5f5;
+
   .footer_copyright_and_legal {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 1605px;
-    margin : 0 auto;
-    margin-left:200px;
+    margin: 0 auto;
+    margin-left: 200px;
 
     .footer_copyright {
       margin: 30px 0px 30px 0px;
       font-size: 12px;
-
-      color:#484848;
+      color: #484848;
     }
+
     .footer_legal_links_box {
       display: flex;
       justify-content: space-between;
@@ -195,24 +198,22 @@ const Container = styled.div`
 
       .footer_legal_links_text {
         font-size: 12px;
-  
       }
     }
   }
-  .footer_legal_info_box {
 
-    width:1605px;
-    margin:0 auto;
-    margin-left:200px;
-      .footer_legal_info {
-        margin: 0 0 8px;
-        font-size: 12px;
-  
-        line-height: 20px;
-        color: #484848;
-      }
+  .footer_legal_info_box {
+    width: 1605px;
+    margin: 0 auto;
+    margin-left: 200px;
+
+    .footer_legal_info {
+      margin: 0 0 8px;
+      font-size: 12px;
+      line-height: 20px;
+      color: #484848;
     }
-    }
+  }
 `;
 
 const ContainerInner = styled.div`
@@ -221,17 +222,19 @@ const ContainerInner = styled.div`
   height: 435px;
   margin: 0 auto;
   margin: 20px 100px 0px 200px;
+
   .ikea_family {
     margin: 0px 0px 10px;
     font-size: 22px;
     font-weight: 700;
-
     color: #111111;
   }
+
   p {
     font-size: 14px;
     line-height: 24px;
   }
+
   .text_box_ikea_family {
     width: 480px;
     height: 375px;
@@ -239,24 +242,28 @@ const ContainerInner = styled.div`
     padding: 0px 95px 0px 0px;
     color: #484848;
   }
+
   .text_box_flex {
     display: flex;
     justify-content: space-between;
-
     width: 960px;
     height: 360px;
+
     .text_box_title {
       margin-bottom: 50px;
       font-size: 24px;
       font-weight: 700;
     }
+
     ul {
       width: 186px;
       height: 375px;
     }
+
     .text_box_content {
       font-size: 14px;
       color: #484848;
+
       li {
         margin-bottom: 20px;
       }
@@ -272,12 +279,14 @@ const IconListFlex = styled.div`
   height: 70px;
   margin: 20px 100px 0 200px;
   border-bottom: 1px solid #dfdfdfdf;
+
   .icon_list {
     display: flex;
     justify-content: center;
     justify-content: space-between;
     align-items: center;
     width: 150px;
+
     .icon_facebook {
       width: 40px;
       height: 40px;
@@ -287,6 +296,7 @@ const IconListFlex = styled.div`
       border-radius: 40px;
       height: auto;
     }
+
     .icon_instagram {
       width: 40px;
       height: 40px;
@@ -296,6 +306,7 @@ const IconListFlex = styled.div`
       border-radius: 40px;
       height: auto;
     }
+
     .icon_youtube {
       width: 40px;
       height: 40px;
@@ -306,10 +317,12 @@ const IconListFlex = styled.div`
       height: auto;
     }
   }
+
   .icon_all_box {
     display: flex;
     justify-content: space-between;
   }
+
   .icon_right {
     display: flex;
     justify-content: center;
@@ -323,14 +336,17 @@ const IconListFlex = styled.div`
     font-weight: 700;
     line-height: 1.5;
     color: #484848;
+
     .icon_right_text {
       font-size: 12px;
     }
+
     .icon_right_image {
       width: 24px;
       height: 24px;
     }
   }
+
   .icon_right2 {
     display: flex;
     justify-content: space-between;
@@ -343,12 +359,14 @@ const IconListFlex = styled.div`
     font-weight: 700;
     line-height: 1.5;
     color: #484848;
+
     .icon_right_text2 {
       font-size: 12px;
       font-weight: 700;
       line-height: 1.5;
       color: #484848;
     }
+
     .icon_right_image {
       width: 15px;
       height: 15px;
@@ -357,17 +375,15 @@ const IconListFlex = styled.div`
 `;
 
 const Button = styled.button`
-    height:40px;
-    margin-top:20px;
-    padding: 0px 20px;
-    border: 0;
-    border-radius: 40px;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 1.42857;
-    color: #fff;
-    background-color: #111;
-    cursor: pointer;
-}
+  height: 40px;
+  margin-top: 20px;
+  padding: 0px 20px;
+  border: 0;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.42857;
+  color: #fff;
+  background-color: #111;
+  cursor: pointer;
 `;
-export default Footer;

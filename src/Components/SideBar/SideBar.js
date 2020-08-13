@@ -101,10 +101,14 @@ class SideBar extends React.Component {
     );
   }
 }
+
+export default SideBar;
+
 const SideBarMove = keyframes`
 from{transform : translateX(-100%)}
 to{transform : translateX(0)}
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -114,7 +118,6 @@ const Container = styled.div`
   left: 0;
   width: 480px;
   overflow: ${(props) => (props.setOverflow ? "" : "hidden")};
-
   height: 952px;
   z-index: 3;
   background-color: white;
@@ -152,17 +155,15 @@ const Top = styled.div`
 const Content = styled.div`
   position: relative;
   left: 150px;
+
   .first_ul {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     width: 300px;
     height: 305px;
-    animation:0.25s ease-in-out
-    animation-duration: 3s;
-    animation-name:sidebarmove;
     cursor: pointer;
-}
+
     li {
       font-size: 14px;
       font-weight: 700;
@@ -189,6 +190,7 @@ const Content = styled.div`
       }
     }
   }
+
   .second_ul {
     display: flex;
     flex-direction: column;
@@ -260,7 +262,4 @@ const Bottom = styled.div`
       height: 15px;
     }
   }
-}
-
 `;
-export default SideBar;
