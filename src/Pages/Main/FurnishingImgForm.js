@@ -61,14 +61,11 @@ class FurnishingImgForm extends React.Component {
               onMouseOver={() => this.articleShow(products.id)}
               onMouseLeave={() => this.articleHide()}
               onClick={() => this.imageButtonClickHandle(products.product_id)}
-              style={
-                ({ position: "absoulute" },
-                {
-                  top: `${products.product_position_top}`,
-                  left: `${products.product_position_left}`,
-                  opacity: `${dotDisplay === furnishingInfo.id ? "1" : "0"}`,
-                })
-              }
+              style={{
+                top: `${products.product_position_top}`,
+                left: `${products.product_position_left}`,
+                opacity: `${dotDisplay === furnishingInfo.id ? "1" : "0"}`,
+              }}
             >
               <article
                 className="furnishing-product"

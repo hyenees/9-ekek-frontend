@@ -2,19 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import ImgContainer from "./ImgContainer";
 
+const category = [
+  "침실",
+  "거실",
+  "주방",
+  "홈오피스",
+  "아웃도어",
+  "욕실",
+  "어린이 IKEA",
+  "다이닝",
+  "현관",
+];
+
 class Furnishing extends React.Component {
   state = {
-    category: [
-      "침실",
-      "거실",
-      "주방",
-      "홈오피스",
-      "아웃도어",
-      "욕실",
-      "어린이 IKEA",
-      "다이닝",
-      "현관",
-    ],
     colorHandle: "",
     furnishingData: [],
     buttonClick: 0,

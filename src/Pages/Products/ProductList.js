@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ProductContentForm from "../Products/ProductContentForm";
+import ProductContentForm from "./ProductContentForm";
 import Nav from "../../Components/Nav";
 import { API_URL, DATA_PATH } from "../../config";
 
@@ -14,6 +14,7 @@ const menu = [
   "필터 더 보기",
 ];
 
+
 class ProductList extends React.Component {
   state = {
     categorySelect: "",
@@ -23,6 +24,7 @@ class ProductList extends React.Component {
     clicked: "",
     sortProductList: null,
   };
+
   componentDidMount() {
     fetch(API_URL + `/product/subcategorylist/?category=가구`)
       .then((res) => res.json())
@@ -113,7 +115,7 @@ class ProductList extends React.Component {
           <ProductTitle>{`식탁 & 책상`}</ProductTitle>
           <CategoryContainer>
             {subCategoryList.map((subCategory, idx) => (
-              <article
+              <article key={idx}
                 onMouseOver={() => {
                   this.setState({
                     underLine: idx,
@@ -125,10 +127,8 @@ class ProductList extends React.Component {
                   });
                 }}
               >
-                <img key={idx} src={subCategory.image} alt={subCategory.name} />
-                <p
-                  key={idx}
-                  className={`${
+                <img src={subCategory.image} alt={subCategory.name} />
+                <p className={`${
                     underLine === idx ? "show-underline" : "none-underline"
                   }`}
                 >
@@ -179,6 +179,7 @@ class ProductList extends React.Component {
                   productSize={productList.size}
                   productImg={productList.images[0]}
                   productHoverImg={productList.images[1]}
+                  productId={productList.id}
                 />
               ))}
             </MainContents>

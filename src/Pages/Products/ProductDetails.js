@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Nav from "../../Components/Nav";
 import Footer from "../../Components/Footer";
 import { URL_PATH } from "../../config";
+
 import { API_URL } from "../../config";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";

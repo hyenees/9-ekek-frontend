@@ -1,4 +1,5 @@
 import React from "react";
+
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
@@ -12,6 +13,7 @@ import search from "../Images/search.png";
 import { IoIosMenu } from "react-icons/io";
 
 class Nav extends React.Component {
+
   state = {
     sideBar: false,
     sideBarClick: false,
@@ -58,10 +60,11 @@ class Nav extends React.Component {
           ""
         )}
         {this.state.subCurrentIndex !== 0 && <SideBarClickFurniture />}
-        <Container>
-          <div className="ioio_menu_box" onClick={this.NavButtonHandler}>
-            <IoIosMenu size="24" />
-          </div>
+      <Container>
+        <div className="ioio_menu_box" onClick={this.NavButtonHandler}>
+          <IoIosMenu size="24" />
+        </div>
+
           <ContainerInner>
             <div className="left_nav_align">
               <Link to="/">
@@ -179,6 +182,7 @@ class Nav extends React.Component {
                 </ol>
               </div>
             </SearchBox>
+
           </SearchContainer>
         ) : null}
       </>
@@ -233,6 +237,7 @@ const ContainerInner = styled.div`
         a {
           font-size: 14px;
           font-weight: 700;
+=
           line-height: 24px;
           color: #111111;
         }
@@ -291,6 +296,7 @@ const Input = styled.input.attrs({
   border-radius: 50em;
 `;
 
+
 const slideToBottom = keyframes`
    0%{
         transform : translateY(-100%)
@@ -298,6 +304,15 @@ const slideToBottom = keyframes`
     100%{
         transform : translateY(0)
     }
+`
+
+const SearchContainer = styled.div`
+  position: fixed;
+  z-index : 500;
+  width :100vw;
+  height :100vw;
+  background: rgba(0,0,0,.15);
+
 `;
 
 const SearchContainer = styled.div`
@@ -310,6 +325,7 @@ const SearchContainer = styled.div`
 
 const SearchBox = styled.div`
   position: fixed;
+
   z-index: 500;
   top: 0;
   left: 0;

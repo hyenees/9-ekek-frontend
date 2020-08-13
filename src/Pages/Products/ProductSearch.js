@@ -22,6 +22,7 @@ class ProductSearch extends React.Component {
     underLine: "",
     clicked: "",
     sortProductList: null,
+
     inputClick: false,
   };
 

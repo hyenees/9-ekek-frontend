@@ -89,6 +89,7 @@ function Signup({ history }) {
 
     setBorderColor({
       ...borderColor,
+
       [name]:
         valid[name] === null || valid[name] === true
           ? "bottomBlue"
@@ -233,6 +234,7 @@ function Signup({ history }) {
 
   const sendNumber = () => {
     valid.phoneNumber && setShow(true);
+
     axios({
       method: "post",
       url: `${API_URL}/account/sms`,
@@ -646,6 +648,7 @@ const FormBox = styled.div`
         display : block;
     `}
 
+
     .timer {
     position: absolute;
     top: 28px;
@@ -682,6 +685,7 @@ const Input = styled.input`
   border: none;
   font-size: 16px;
   line-height: 24px;
+
   border-bottom: ${(props) => props.borderColor};
   box-shadow: ${(props) => props.borderbox};
 `;

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import MonthlyContent from "./MonthlyContent";
+
 import { API_URL } from "../config";
 
 class MainProductMonth extends React.Component {
