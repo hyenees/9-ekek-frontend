@@ -9,6 +9,7 @@ import kakao from "../../Images/kakao_login_large_wide.png";
 
 const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$/;
 const { Kakao } = window;
+
 Kakao.init(jsKey);
 
 function Login({ history }) {
@@ -17,7 +18,7 @@ function Login({ history }) {
     password: false,
   });
 
-  const [value, setValue] = useState({
+  const [accountValue, setAccountValue] = useState({
     email: "",
     password: "",
   });
@@ -71,35 +72,36 @@ function Login({ history }) {
 
     setFontSize({
       ...fontSize,
-      [name]: value[name] && value[name].length > 0 ? "small" : "big",
+      [name]:
+        accountValue[name] && accountValue[name].length > 0 ? "small" : "big",
     });
   };
 
   const onChangeEmail = (e) => {
     const { name, value } = e.target;
 
-    setValue({
-      ...value,
+    setAccountValue({
+      ...accountValue,
       [name]: value,
     });
 
     setValid({
       ...valid,
-      [name]: value.includes("@" && ".") ? true : false,
+      email: value.includes("@" && ".") ? true : false,
     });
   };
 
   const onChangePassword = (e) => {
     const { name, value } = e.target;
 
-    setValue({
-      ...value,
+    setAccountValue({
+      ...accountValue,
       [name]: value,
     });
 
     setValid({
       ...valid,
-      [name]: reg.test(value) ? true : false,
+      password: reg.test(value) ? true : false,
     });
   };
 
@@ -198,7 +200,7 @@ function Login({ history }) {
             <InputBox>
               <Input
                 name="email"
-                value={value.email}
+                value={accountValue.email}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
                 onChange={onChangeEmail}
@@ -212,7 +214,7 @@ function Login({ history }) {
               <Input
                 type="password"
                 name="password"
-                value={value.password}
+                value={accountValue.password}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
                 onChange={onChangePassword}
@@ -223,7 +225,6 @@ function Login({ history }) {
               <Label fontSize={fontSize.password}>비밀번호</Label>
             </InputBox>
             <span>비밀번호 찾기</span>
-
             <Button onClick={loginClick}>로그인</Button>
           </LoginBox>
           <Button gray onClick={() => history.push("./signup")}>
