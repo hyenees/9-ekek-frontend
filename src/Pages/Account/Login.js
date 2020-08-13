@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { withRouter } from 'react-router-dom';
+import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import { FiArrowLeft } from "react-icons/fi";
-import {jsKey} from "../../jsKey"
-import {API_URL} from "../../config";
+import { jsKey } from "../../jsKey";
+import { API_URL } from "../../config";
 import kakao from "../../Images/kakao_login_large_wide.png";
 
 const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$/;
 const { Kakao } = window;
-Kakao.init(jsKey)
 
-function Login({history}) {
+Kakao.init(jsKey);
+
+function Login({ history }) {
   const [focus, setFocus] = useState({
     email: false,
     password: false,
@@ -51,8 +53,8 @@ function Login({history}) {
 
     setBorderColor({
       ...borderColor,
-      [name] : valid[name] === null || valid[name] ? "bottomBlue" : "bottomRed",
-    })
+      [name]: valid[name] === null || valid[name] ? "bottomBlue" : "bottomRed",
+    });
   };
 
   const inputBlur = (e) => {
@@ -65,90 +67,104 @@ function Login({history}) {
 
     setBorderColor({
       ...borderColor,
-      [name] : valid[name] ? null : "bottomRed",
-    })
-   
+      [name]: valid[name] ? null : "bottomRed",
+    });
+
     setFontSize({
       ...fontSize,
-      [name] : accountValue[name] && accountValue[name].length > 0 ? "small" : "big"
-    })
+      [name]:
+        accountValue[name] && accountValue[name].length > 0 ? "small" : "big",
+    });
   };
 
-  const onChangeHandle = (e) => {
+  const onChangeEmail = (e) => {
     const { name, value } = e.target;
-    setValid({
-      email : value.includes("@" && ".") ? true : false,
-      password : reg.test(value) ? true : false
-    })
+
     setAccountValue({
       ...accountValue,
-      [name] : value
-    })
-  }
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
+      email: value.includes("@" && ".") ? true : false,
+    });
+  };
+
+  const onChangePassword = (e) => {
+    const { name, value } = e.target;
+
+    setAccountValue({
+      ...accountValue,
+      [name]: value,
+    });
+
+    setValid({
+      ...valid,
+      password: reg.test(value) ? true : false,
+    });
+  };
 
   const borderColorChange = (name) => {
-    switch(borderColor[name]){
-      case null :
-        return "1px solid #929292"
-      case "bottomRed" :
-        return "1px solid #e00751"
-      case "bottomBlue" :
-        return "1px solid #0058a3"
+    switch (borderColor[name]) {
+      case null:
+        return "1px solid #929292";
+      case "bottomRed":
+        return "1px solid #e00751";
+      case "bottomBlue":
+        return "1px solid #0058a3";
       default:
-        return ""
+        return "";
     }
-  }
+  };
 
   const borderBoxStyle = (name) => {
-    switch(borderColor[name]){
-      case "bottomRed" :
-        return "0 1px 0 #e00751"
-      case "bottomBlue" :
-        return "0 1px 0 #0058a3"
+    switch (borderColor[name]) {
+      case "bottomRed":
+        return "0 1px 0 #e00751";
+      case "bottomBlue":
+        return "0 1px 0 #0058a3";
       default:
-        return ""
+        return "";
     }
-  }
+  };
 
   const loginClick = () => {
-    fetch(`${API_URL}/account/signin`,{
-      method: "post",
-      body: JSON.stringify({
-        email: accountValue.email,
-        password: accountValue.password,
-      }),
-    })
-    .then((res) => res.json())
-    .then(res => localStorage.setItem("access_token", res.access_token))
-    history.push('./');
-  }
+    axios({
+      method: "POST",
+      url: `${API_URL}/user/login`,
+      data: {
+        email: value.email,
+        password: value.password,
+      },
+    }).then((res) => localStorage.setItem("access_token", res.token));
+    history.push("./");
+  };
 
   const kakaoClick = () => {
-      // Open login popup.
-      Kakao.Auth.loginForm({
-        success(authObj) {
-          console.log(authObj)
-          fetch(`${API_URL}/account/kakao`, {
-            method: 'post',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: authObj.access_token,
-            },
+    // Open login popup.
+    Kakao.Auth.loginForm({
+      success(authObj) {
+        fetch(`${URL}/user/kakaologin`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: authObj.access_token,
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
           })
-            .then(res => res.json())
-            .then(res => { console.log(res)
-              localStorage.setItem("kakao_token", res.token)
-              history.push('./')
-            })
-            .catch(error => {
-              console.log(error);
-            });
-        },
-        fail(err) {
-          console.log(JSON.stringify(err));
-        },
-      });
-  }
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+      fail(err) {
+        console.log(JSON.stringify(err));
+      },
+    });
+  };
 
   return (
     <Wrapper>
@@ -172,7 +188,8 @@ function Login({history}) {
             </p>
           </div>
           <div className="footer-text">
-            <span>IKEA.kr</span>&nbsp;-&nbsp;<span className="underline">개인정보처리방침</span>
+            <span>IKEA.kr</span>&nbsp;-&nbsp;
+            <span className="underline">개인정보처리방침</span>
             <div>© Inter IKEA Systems B.V. 1999-2020</div>
           </div>
         </Box>
@@ -182,11 +199,11 @@ function Login({history}) {
           <LoginBox>
             <InputBox>
               <Input
-                name = "email"
-                value = {accountValue.email}
+                name="email"
+                value={accountValue.email}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
-                onChange={onChangeHandle}
+                onChange={onChangeEmail}
                 fontSize={fontSize.email}
                 borderColor={borderColorChange("email")}
                 borderbox={borderBoxStyle("email")}
@@ -195,12 +212,12 @@ function Login({history}) {
             </InputBox>
             <InputBox password>
               <Input
-                type = "password"
-                name = "password"
-                value = {accountValue.password}
+                type="password"
+                name="password"
+                value={accountValue.password}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
-                onChange={onChangeHandle}
+                onChange={onChangePassword}
                 fontSize={fontSize}
                 borderColor={borderColorChange("password")}
                 borderbox={borderBoxStyle("password")}
@@ -208,10 +225,12 @@ function Login({history}) {
               <Label fontSize={fontSize.password}>비밀번호</Label>
             </InputBox>
             <span>비밀번호 찾기</span>
-            <Button onClick = {loginClick}>로그인</Button>
+            <Button onClick={loginClick}>로그인</Button>
           </LoginBox>
-          <Button gray onClick={()=>history.push("./signup")}>회원가입</Button>
-          <img src={kakao} alt="kakao" onClick={kakaoClick}/>
+          <Button gray onClick={() => history.push("./signup")}>
+            회원가입
+          </Button>
+          <img src={kakao} alt="kakao" onClick={kakaoClick} />
         </div>
       </Container>
     </Wrapper>
@@ -237,16 +256,16 @@ const Container = styled.div`
     top: 50%;
     transform: translateY(-55%);
 
-    img{
-      display : block;
-      width:auto;
-      height : 56px;
-      margin : 16px auto 0;
-      cursor : pointer;
+    img {
+      display: block;
+      width: auto;
+      height: 56px;
+      margin: 16px auto 0;
+      cursor: pointer;
 
-      &:hover{
-            filter: brightness(93%);
-        }
+      &:hover {
+        filter: brightness(93%);
+      }
     }
   }
 `;
@@ -289,7 +308,7 @@ const Box = styled.div`
     line-height: 18.85px;
     color: #f2f5f7;
 
-    .underline{
+    .underline {
       text-decoration: underline solid rgb(242, 245, 247);
       font-size: 11px;
       cursor: pointer;
@@ -335,10 +354,12 @@ const Input = styled.input`
   padding: 24px 0 1px 0;
   border: none;
   font-size: 16px;
-  border-bottom: ${(props) =>{
-    return props.borderColor
-    }};
-  box-shadow :${(props) => {return props.borderbox}};
+  border-bottom: ${(props) => {
+    return props.borderColor;
+  }};
+  box-shadow: ${(props) => {
+    return props.borderbox;
+  }};
 `;
 
 const Label = styled.label`
