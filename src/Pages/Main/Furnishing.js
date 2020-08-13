@@ -33,21 +33,22 @@ class Furnishing extends React.Component {
     return (
       <Wrapper>
         <Title>{title}</Title>
-        {category.map((category, idx) => (
-          <button
-            className={`${
-              colorHandle === idx ? "category-btn-clicked" : "category-btn"
-            }`}
-            key={idx}
-            onClick={() => {
-              this.setState({
-                colorHandle: idx,
-              });
-            }}
-          >
-            {category}
-          </button>
-        ))}
+        {category &&
+          category.map((category, idx) => (
+            <button
+              className={`${
+                colorHandle === idx ? "category-btn-clicked" : "category-btn"
+              }`}
+              key={idx}
+              onClick={() => {
+                this.setState({
+                  colorHandle: idx,
+                });
+              }}
+            >
+              {category}
+            </button>
+          ))}
 
         <ImgContainer buttonClick={buttonClick} />
         <MoreProduct>
