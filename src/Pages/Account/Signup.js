@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { API_URL } from "../../config";
+
+const passwordReg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$/;
+const birthReg = /^\d{4}-\d{1,2}-\d{1,2}$/;
 
 function Signup({ history }) {
   const [focus, setFocus] = useState({
@@ -23,7 +26,7 @@ function Signup({ history }) {
     certifiNumber: false,
   });
 
-  const [value, setValue] = useState({
+  const [signupValue, setSignupValue] = useState({
     name: "",
     birth: "",
     phoneNumber: "",
@@ -57,152 +60,97 @@ function Signup({ history }) {
     regular: true,
   });
 
+  const [result, setResult] = useState("");
+  const [timer, setTimer] = useState(45);
+
+  useEffect(()=>{
+    if (show) {
+      const time = timer > 0 && setInterval(()=> {setTimer(timer - 1)}, 1000)
+      return () => clearInterval(time);
+    }
+  },[timer, show])
+  
   const inputFocus = (e) => {
+    const { name } = e.target;
+
     setFocus({
       ...focus,
-      [e.target.name]: !focus[e.target.name],
+      [name]: !focus[name],
     });
 
     setFontSize({
       ...fontSize,
-      [e.target.name]: "small",
+      [name]: "small",
     });
 
-    valid[e.target.name] === null || valid[e.target.name]
-      ? setBorderColor({
-          ...borderColor,
-          [e.target.name]: "bottomBlue",
-        })
-      : setBorderColor({
-          ...borderColor,
-          [e.target.name]: "bottomRed",
-        });
+    setBorderColor({
+      ...borderColor,
+      [name]: (valid[name] === null || valid[name]) ? "bottomBlue" : "bottomRed",
+    })
   };
 
   const inputBlur = (e) => {
+    const { name } = e.target;
+
     setFocus({
       ...focus,
-      [e.target.name]: !focus[e.target.name],
+      [name]: !focus[name],
     });
 
-    valid[e.target.name]
-      ? setBorderColor({
-          ...borderColor,
-          [e.target.name]: null,
-        })
-      : setBorderColor({
-          ...borderColor,
-          [e.target.name]: "bottomRed",
-        });
+    setBorderColor({
+      ...borderColor,
+      [name]: valid[name] ? null : "bottomRed",
+    });
 
-    value[e.target.name].length > 0
-      ? setFontSize({
-          ...fontSize,
-          [e.target.name]: "small",
-        })
-      : setFontSize({
-          ...fontSize,
-          [e.target.name]: "big",
-        });
+    setFontSize({
+      ...fontSize,
+      [name]: signupValue[name].length > 0 ? "small" : "big",
+    })
   };
 
-  const onChangeName = (e) => {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
     });
-    if (e.target.value.length > 0) {
-      setValid({
-        ...valid,
-        [e.target.name]: true,
-      });
+
+    setValid({
+      ...valid,
+      name: value.length > 0 && true,
+      birth: birthReg.test(value) ? true : false,
+      phoneNumber: value.length === 11 ? true : false,
+      certifiNumber: value.length === 6 ? true : false,
+      email: value.includes("@" && ".") ? true : false,
+      password: passwordReg.test(value) ? true : false,
+    });
+  };
+
+  const borderColorChange = (name) => {
+    switch(borderColor[name]){
+      case null :
+        return "1px solid #929292"
+      case "bottomRed" :
+        return "1px solid #e00751"
+      case "bottomBlue" :
+        return "1px solid #0058a3"
+      default:
+        return "";
     }
-  };
+  }
 
-  const onChangeBirth = (e) => {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
-    });
-    const birthReg = /^\d{4}-\d{1,2}-\d{1,2}$/;
-    birthReg.test(e.target.value)
-      ? setValid({
-          ...valid,
-          [e.target.name]: true,
-        })
-      : setValid({
-          ...valid,
-          [e.target.name]: false,
-        });
-  };
-
-  const onChangePhoneNumber = (e) => {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
-    });
-    e.target.value.length === 11
-      ? setValid({
-          ...valid,
-          [e.target.name]: true,
-        })
-      : setValid({
-          ...valid,
-          [e.target.name]: false,
-        });
-  };
-
-  const onChangeCertifiNumber = (e) => {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
-    });
-    e.target.value.length === 4
-      ? setValid({
-          ...valid,
-          [e.target.name]: true,
-        })
-      : setValid({
-          ...valid,
-          [e.target.name]: false,
-        });
-  };
-
-  const onChangeEmail = (e) => {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
-    });
-
-    e.target.value.includes("@") && e.target.value.includes(".")
-      ? setValid({
-          ...valid,
-          [e.target.name]: true,
-        })
-      : setValid({
-          ...valid,
-          [e.target.name]: false,
-        });
-  };
-
-  const onChangePassword = (e) => {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
-    });
-
-    const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$/;
-    reg.test(e.target.value)
-      ? setValid({
-          ...valid,
-          [e.target.name]: true,
-        })
-      : setValid({
-          ...valid,
-          [e.target.name]: false,
-        });
-  };
-
+  const borderBoxStyle = (name) => {
+    switch (borderColor[name]) {
+      case "bottomRed":
+        return "0 1px 0 #e00751";
+      case "bottomBlue":
+        return "0 1px 0 #0058a3";
+      default:
+        return "";
+    }
+  }
+  
   const handleInputRadio = (e) => {
     setInputToggle({
       ...inputToggle,
@@ -212,14 +160,13 @@ function Signup({ history }) {
   };
 
   const sendNumber = () => {
-    if (valid.phoneNumber) {
-      setShow(true);
-    }
-    axios({
+    valid.phoneNumber && setShow(true);
+    
+    axios({ 
       method: "post",
-      url: `${API_URL}/account/phoneverification`,
+      url: `${API_URL}/account/sms`,
       data: {
-        phone_number: value.phoneNumber,
+        mobile : signupValue.phoneNumber,
       },
     });
   };
@@ -227,26 +174,30 @@ function Signup({ history }) {
   const checkCertifiNum = () => {
     axios({
       method: "post",
-      url: `${API_URL}/account/phoneconfirm`,
+      url: `${API_URL}/account/check`,
       data: {
-        phone_number: value.phoneNumber,
-        authorization_number: value.certifiNumber,
+        mobile : signupValue.phoneNumber,
+        code : signupValue.certifiNumber,
       },
     }).then((res) => {
-      console.log(res);
-    });
+      setResult(res.data.message);
+    })
+    .catch(error => {
+        console.log(error)
+        alert("잘못된 인증번호입니다.")
+      })
   };
 
   const signupClick = () => {
     axios({
       method: "post",
-      url: `${API_URL}/account`,
+      url: `${API_URL}/account/signup`,
       data: {
-        name: value.name,
-        birth: value.birth,
-        email: value.email,
-        password: value.password,
-        phone_number: value.phoneNumber,
+        name: signupValue.name,
+        birthday: signupValue.birth,
+        email: signupValue.email,
+        password: signupValue.password,
+        phone_number: signupValue.phoneNumber,
       },
     }).then((res) => {
       console.log(res);
@@ -351,33 +302,36 @@ function Signup({ history }) {
         <FormBox>
           <Input
             name="name"
-            value={value.name}
+            value={signupValue.name}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeName}
-            borderColor={borderColor.name}
+            onChange={onChangeHandler}
+            borderColor={borderColorChange("name")}
+            borderbox={borderBoxStyle("name")}
           />
           <Label fontSize={fontSize.name}>이름</Label>
         </FormBox>
         <FormBox>
           <Input
             name="birth"
-            value={value.birth}
+            value={signupValue.birth}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeBirth}
-            borderColor={borderColor.birth}
+            onChange={onChangeHandler}
+            borderColor={borderColorChange("birth")}
+            borderbox={borderBoxStyle("birth")}
           />
           <Label fontSize={fontSize.birth}>생일</Label>
         </FormBox>
         <FormBox>
           <Input
             name="phoneNumber"
-            value={value.phoneNumber}
+            value={signupValue.phoneNumber}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangePhoneNumber}
-            borderColor={borderColor.phoneNumber}
+            onChange={onChangeHandler}
+            borderColor={borderColorChange("phoneNumber")}
+            borderbox={borderBoxStyle("phoneNumber")}
           />
           <Label fontSize={fontSize.phoneNumber}>휴대폰</Label>
           <button onClick={sendNumber}>인증번호 발송</button>
@@ -385,23 +339,26 @@ function Signup({ history }) {
         <FormBox checkNum showCheckNum={show}>
           <Input
             name="certifiNumber"
-            value={value.certifiNumber}
+            value={signupValue.certifiNumber}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeCertifiNumber}
-            borderColor={borderColor.certifiNumber}
+            onChange={onChangeHandler}
+            borderColor={borderColorChange("certifiNumber")}
+            borderbox={borderBoxStyle("certifiNumber")}
           />
+           <div className="success-msg">{result === "SUCCESS" ? "인증되었습니다." : ""}</div>
           <Label fontSize={fontSize.certifiNumber}>인증번호</Label>
-          <button onFocus={checkCertifiNum}>확인</button>
+          <span className="timer">00:{timer < 10 ? `0${timer}` : timer}</span><button onClick={checkCertifiNum} className="check-btn">확인</button>
         </FormBox>
         <FormBox>
           <Input
             name="email"
-            value={value.email}
+            value={signupValue.email}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangeEmail}
-            borderColor={borderColor.email}
+            onChange={onChangeHandler}
+            borderColor={borderColorChange("email")}
+            borderbox={borderBoxStyle("email")}
           />
           <Label fontSize={fontSize.email}>이메일</Label>
         </FormBox>
@@ -409,11 +366,12 @@ function Signup({ history }) {
           <Input
             type="password"
             name="password"
-            value={value.password}
+            value={signupValue.password}
             onFocus={inputFocus}
             onBlur={inputBlur}
-            onChange={onChangePassword}
-            borderColor={borderColor.password}
+            onChange={onChangeHandler}
+            borderColor={borderColorChange("password")}
+            borderbox={borderBoxStyle("password")}
           />
           <Label fontSize={fontSize.password}>비밀번호</Label>
         </FormBox>
@@ -611,17 +569,34 @@ const FormBox = styled.div`
         display : block;
     `}
     
+    .timer{
+      position : absolute;
+      top: 28px;
+      right : 38px;
+      color : #e00751;
+      font-weight: 700;
+    }
+
     button {
-    position: absolute;
-    right: 0;
-    top: 26px;
-    background: none;
-    border: none;
-    font-size: 14px;
-    font-weight: 700;
-    font-family: "NotoSansBold";
-    color: #0058a3;
-  }
+      position : absolute;
+      top: 26px;
+      right : 0;
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: "NotoSansBold";
+      color: #0058a3;
+      }
+
+    .success-msg{
+      position: absolute;
+      top: 55px;
+      color : #e00751;
+      font-weight: 700;
+      font-size : 14px;
+    }
+
 `;
 
 const Input = styled.input`
@@ -632,15 +607,9 @@ const Input = styled.input`
   font-size: 16px;
   line-height: 24px;
   border-bottom: ${(props) =>
-    props.borderColor === null ? "1px solid #929292" : ""};
-  border-bottom: ${(props) =>
-    props.borderColor === "bottomBlue" ? "1px solid #0058a3" : ""};
-  border-bottom: ${(props) =>
-    props.borderColor === "bottomRed" ? "1px solid #e00751" : ""};
+    props.borderColor};
   box-shadow: ${(props) =>
-    props.borderColor === "bottomBlue" ? "0 1px 0 #0058a3" : ""};
-  box-shadow: ${(props) =>
-    props.borderColor === "bottomRed" ? "0 1px 0 #e00751" : ""};
+    props.borderbox};
 `;
 
 const Label = styled.label`

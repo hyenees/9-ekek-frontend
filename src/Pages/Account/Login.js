@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 import { FiArrowLeft } from "react-icons/fi";
 import { jsKey } from "../../jsKey";
@@ -17,7 +16,7 @@ function Login({ history }) {
     password: false,
   });
 
-  const [value, setValue] = useState({
+  const [accountValue, setAccountValue] = useState({
     email: "",
     password: "",
   });
@@ -71,35 +70,20 @@ function Login({ history }) {
 
     setFontSize({
       ...fontSize,
-      [name]: value[name] && value[name].length > 0 ? "small" : "big",
+      [name]:
+        accountValue[name] && accountValue[name].length > 0 ? "small" : "big",
     });
   };
 
-  const onChangeEmail = (e) => {
+  const onChangeHandle = (e) => {
     const { name, value } = e.target;
-
-    setValue({
-      ...value,
-      [name]: value,
-    });
-
     setValid({
-      ...valid,
-      [name]: value.includes("@" && ".") ? true : false,
+      email: value.includes("@" && ".") ? true : false,
+      password: reg.test(value) ? true : false,
     });
-  };
-
-  const onChangePassword = (e) => {
-    const { name, value } = e.target;
-
-    setValue({
-      ...value,
+    setAccountValue({
+      ...accountValue,
       [name]: value,
-    });
-
-    setValid({
-      ...valid,
-      [name]: reg.test(value) ? true : false,
     });
   };
 
@@ -128,14 +112,15 @@ function Login({ history }) {
   };
 
   const loginClick = () => {
-    axios({
-      method: "POST",
-      url: `${API_URL}/user/login`,
-      data: {
-        email: value.email,
-        password: value.password,
-      },
-    }).then((res) => localStorage.setItem("access_token", res.token));
+    fetch(`${API_URL}/account/signin`, {
+      method: "post",
+      body: JSON.stringify({
+        email: accountValue.email,
+        password: accountValue.password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => localStorage.setItem("access_token", res.access_token));
     history.push("./");
   };
 
@@ -143,8 +128,9 @@ function Login({ history }) {
     // Open login popup.
     Kakao.Auth.loginForm({
       success(authObj) {
-        fetch(`${URL}/user/kakaologin`, {
-          method: "POST",
+        console.log(authObj);
+        fetch(`${API_URL}/account/kakao`, {
+          method: "post",
           headers: {
             "Content-Type": "application/json",
             Authorization: authObj.access_token,
@@ -153,6 +139,8 @@ function Login({ history }) {
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
+            localStorage.setItem("access_token", res.token);
+            history.push("./");
           })
           .catch((error) => {
             console.log(error);
@@ -198,10 +186,10 @@ function Login({ history }) {
             <InputBox>
               <Input
                 name="email"
-                value={value.email}
+                value={accountValue.email}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
-                onChange={onChangeEmail}
+                onChange={onChangeHandle}
                 fontSize={fontSize.email}
                 borderColor={borderColorChange("email")}
                 borderbox={borderBoxStyle("email")}
@@ -212,10 +200,10 @@ function Login({ history }) {
               <Input
                 type="password"
                 name="password"
-                value={value.password}
+                value={accountValue.password}
                 onFocus={inputFocus}
                 onBlur={inputBlur}
-                onChange={onChangePassword}
+                onChange={onChangeHandle}
                 fontSize={fontSize}
                 borderColor={borderColorChange("password")}
                 borderbox={borderBoxStyle("password")}
@@ -223,7 +211,6 @@ function Login({ history }) {
               <Label fontSize={fontSize.password}>비밀번호</Label>
             </InputBox>
             <span>비밀번호 찾기</span>
-
             <Button onClick={loginClick}>로그인</Button>
           </LoginBox>
           <Button gray onClick={() => history.push("./signup")}>

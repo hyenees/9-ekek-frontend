@@ -15,13 +15,13 @@ function CartProduct(props){
                 </div>
             </ListLeft>
             <ListRight>
-                <div className="product-price">₩&nbsp;{product_price}</div>
+                <div className="product-price">₩&nbsp;{product_price.toLocaleString()}</div>
                 <a href="#!">위시리스트로 이동</a>
                 <OptionBox>
                     <button onClick={()=>props.removeItem(product_number)}><img src="https://order.ikea.com/kr/ko/checkout/static/media/remove-thin-24.16c1cc7a.svg" alt=""/></button>
-                    <select onChange={(e)=>props.quantityHandler(product_number, e.target.value)}>
-                        <option selected hidden>{product_quantity}</option>
-                        {new Array(100).fill(undefined).map((val, idx) =>{return (`<option value=${idx} + 1>${idx} + 1</option>`)})}
+                    <select value={product_quantity} onChange={(e)=>props.quantityHandler(product_number, e.target.value)}>
+                        {new Array(999).fill(undefined).map((val, idx) =>{
+                            return <option value={idx+1}>{idx+1}</option>})}
                     </select>
                 </OptionBox>       
             </ListRight>
@@ -117,6 +117,7 @@ const OptionBox = styled.div`
         font-size : 16px;
         line-height : 18.4px;
         appearance : none;
-        background : url("https://order.ikea.com/kr/ko/checkout/static/media/chevron-down-thin-24.1667eab2.svg") no-repeat right 8px center 1.5rem ;
+        background : url("https://order.ikea.com/kr/ko/checkout/static/media/chevron-down-thin-24.1667eab2.svg") no-repeat right 8px center;
+        background-size :1.5rem ;
     }
 `

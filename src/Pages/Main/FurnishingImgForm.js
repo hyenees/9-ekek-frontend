@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import "./FurnishingImgForm.scss";
 import arrowIcon from "../../Images/arrowIcon.png";
 
@@ -21,12 +21,9 @@ class FurnishingImgForm extends React.Component {
   };
 
   articleShow = (productId) => {
-    this.setState(
-      {
-        articleDisplay: productId,
-      },
-      () => console.log(this.state.articleDisplay)
-    );
+    this.setState({
+      articleDisplay: productId,
+    });
   };
 
   articleHide = () => {
@@ -37,7 +34,7 @@ class FurnishingImgForm extends React.Component {
 
   imageButtonClickHandle = (id) => {
     this.props.history.push(`/products/${id}`);
-  }
+  };
 
   render() {
     const { furnishingInfo } = this.props;
@@ -64,14 +61,11 @@ class FurnishingImgForm extends React.Component {
               onMouseOver={() => this.articleShow(products.id)}
               onMouseLeave={() => this.articleHide()}
               onClick={() => this.imageButtonClickHandle(products.product_id)}
-              style={
-                ({ position: "absoulute" },
-                {
-                  top: `${products.product_position_top}`,
-                  left: `${products.product_position_left}`,
-                  opacity: `${dotDisplay === furnishingInfo.id ? "1" : "0"}`,
-                })
-              }
+              style={{
+                top: `${products.product_position_top}`,
+                left: `${products.product_position_left}`,
+                opacity: `${dotDisplay === furnishingInfo.id ? "1" : "0"}`,
+              }}
             >
               <article
                 className="furnishing-product"

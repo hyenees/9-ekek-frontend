@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import MonthlyContent from "./MonthlyContent";
+import {API_URL} from '../config'
 
 class MainProductMonth extends React.Component {
   state = { monthlyProduct: [] };
   componentDidMount() {
-    fetch("http://10.58.5.220:8000/product/thismonthproduct")
+    fetch(`${API_URL}/product/thismonthproduct`)
       .then((res) => res.json())
       .then((res) =>
         this.setState(
           {
             monthlyProduct: res.data,
           },
-          () => console.log(this.state.monthlyProduct)
         )
       );
   }

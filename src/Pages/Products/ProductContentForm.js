@@ -1,10 +1,16 @@
 import React from "react";
+import {withRouter} from "react-router-dom";
 import styled from "styled-components";
 
 class ProductContentForm extends React.Component {
   state = {
     imgHover: "",
   };
+
+  imageButtonClickHandle = (id) => {
+    this.props.history.push(`/products/${id}`);
+  }
+
 
   render() {
     const {
@@ -15,6 +21,7 @@ class ProductContentForm extends React.Component {
       productImg,
       productHoverImg,
       product_number,
+      productId,
     } = this.props;
 
     const { imgHover } = this.state;
@@ -32,6 +39,7 @@ class ProductContentForm extends React.Component {
         }}
       >
         <img
+          onClick={() => this.imageButtonClickHandle(productId)}
           src={imgHover === product_number ? productHoverImg : productImg}
           alt={productName}
         />
@@ -50,7 +58,7 @@ class ProductContentForm extends React.Component {
   }
 }
 
-export default ProductContentForm;
+export default withRouter(ProductContentForm);
 
 const LikeButton = styled.button`
   width: 40px;

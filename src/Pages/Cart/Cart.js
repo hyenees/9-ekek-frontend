@@ -12,17 +12,15 @@ function Cart () {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        setTimeout(()=>{
-            axios({
-                method: 'GET',
-                url: `${API_URL}/order/list`,
-                headers: { Authorization : localStorage.getItem("access_token") },
-                })
-                .then(res=> {
-                    setItems(res.data.total_info)
-                    setIsLoading(false)
-                })
-        })
+        axios({
+            method: 'GET',
+            url: `${API_URL}/order/list`,
+            headers: { Authorization : localStorage.getItem("access_token") },
+            })
+            .then(res=> {
+                setItems(res.data.total_info)
+                setIsLoading(false)
+            })
     }, [])
 
     const removeItem = (product_number) => {
@@ -74,12 +72,12 @@ function Cart () {
                 <ButtonBox>
                     <Button>결제하기</Button>
                 </ButtonBox>
-                {items.chosen_items && items.chosen_items.map((product)=>{
-                    return  <CartProduct product={product} removeItem={removeItem} quantityHandler={quantityHandler}/>
+                {items.chosen_items && items.chosen_items.map((product,idx)=>{
+                    return  <CartProduct key={idx} product={product} removeItem={removeItem} quantityHandler={quantityHandler}/>
                 })}
                 <TotalBox>
                     <div>총 주문금액</div>
-                    <div>₩&nbsp;{items.total_price && items.total_price.sum.toLocaleString()}</div>
+                    <div>₩&nbsp;{items.total_price && items.total_price.toLocaleString()}</div>
                 </TotalBox>
                 <ButtonBox bottomBtn>
                     <Button>결제하기</Button>

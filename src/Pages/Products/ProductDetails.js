@@ -39,7 +39,7 @@ function ProductDetails(props){
         axios({
             method: 'Post',
             url: `${API_URL}/order/upload`,
-            headers: { Authorization : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.J_RIIkoOLNXtd5IZcEwaBDGKGA3VnnYmuXnmhsmDEOs" },
+            headers: { Authorization : localStorage.getItem("access_token") },
             data: {
               product_number: data.product_number
             }
@@ -55,11 +55,11 @@ function ProductDetails(props){
             <div className="wrapper">
                 <Navi>
                     <ol className="category">
-                        <li><Link className="category-link">제품</Link></li>
+                        <li><Link to=""className="category-link">제품</Link></li>
                         <MdKeyboardArrowRight size="13" className="icon"/>
-                        <li><Link className="category-link">{data.category}</Link></li>
+                        <li><Link to="" className="category-link">{data.category}</Link></li>
                         <MdKeyboardArrowRight size="13" className="icon"/>
-                        <li><Link className="category-link">{data.sub_category}</Link></li>
+                        <li><Link to="" className="category-link">{data.sub_category}</Link></li>
                         <MdKeyboardArrowRight size="13" className="icon"/>
                         <li>{data.detail_category}</li> 
                     </ol>

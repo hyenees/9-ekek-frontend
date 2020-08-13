@@ -2,19 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import ImgContainer from "./ImgContainer";
 
+const category = [
+  "침실",
+  "거실",
+  "주방",
+  "홈오피스",
+  "아웃도어",
+  "욕실",
+  "어린이 IKEA",
+  "다이닝",
+  "현관",
+];
+
 class Furnishing extends React.Component {
   state = {
-    category: [
-      "침실",
-      "거실",
-      "주방",
-      "홈오피스",
-      "아웃도어",
-      "욕실",
-      "어린이 IKEA",
-      "다이닝",
-      "현관",
-    ],
     colorHandle: "",
     furnishingData: [],
     buttonClick: 0,
@@ -27,7 +28,7 @@ class Furnishing extends React.Component {
   };
 
   render() {
-    const { category, colorHandle, buttonClick } = this.state;
+    const { colorHandle, buttonClick } = this.state;
     return (
       <Wrapper>
         <Title>홈퍼니싱 아이디어 더 보기</Title>
@@ -61,7 +62,7 @@ class Furnishing extends React.Component {
 export default Furnishing;
 
 const Wrapper = styled.div`
-  margin: 55px 0 0 150px;
+  margin: 55px 0 0 0;
   position: relative;
 
   .category-btn {
