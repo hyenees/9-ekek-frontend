@@ -14,7 +14,7 @@ const menu = [
   "필터 더 보기",
 ];
 
-class ProductList extends React.Component {
+class ProductSearch extends React.Component {
   state = {
     categorySelect: "",
     productList: [],
@@ -22,23 +22,21 @@ class ProductList extends React.Component {
     underLine: "",
     clicked: "",
     sortProductList: null,
+    inputClick: false,
   };
+
   componentDidMount() {
-    fetch(API_URL + `/product/subcategorylist/?category=가구`)
+    fetch(
+      `${API_URL}/product/search/?user_input=${this.props.match.params.item}`
+    )
       .then((res) => res.json())
-      .then((res) =>
+      .then((res) => {
         this.setState({
-          subCategoryList: res.가구,
-        })
-      );
-    fetch(API_URL + `/product/productlist/?subcategory=식탁/책상`)
-      .then((res) => res.json())
-      .then((res) =>
-        this.setState({
-          productList: res.data,
-        })
-      );
+          productList: res.search_result.data,
+        });
+      });
   }
+
   componentDidUpdate(_, prevState) {
     const { clicked, productList } = this.state;
 
@@ -103,54 +101,7 @@ class ProductList extends React.Component {
       <>
         <Nav />
         <ProductListWrapper>
-          <CategoryInfo>
-            <p className="text">제품</p>
-            <p>></p>
-            <p className="text">식탁</p>
-            <p>></p>
-            <p className="text">식탁/책상</p>
-          </CategoryInfo>
-          <ProductTitle>{`식탁 & 책상`}</ProductTitle>
-          <CategoryContainer>
-            {subCategoryList.map((subCategory, idx) => (
-              <article
-                onMouseOver={() => {
-                  this.setState({
-                    underLine: idx,
-                  });
-                }}
-                onMouseLeave={() => {
-                  this.setState({
-                    underLine: "",
-                  });
-                }}
-              >
-                <img key={idx} src={subCategory.image} alt={subCategory.name} />
-                <p
-                  key={idx}
-                  className={`${
-                    underLine === idx ? "show-underline" : "none-underline"
-                  }`}
-                >
-                  {subCategory.name}
-                </p>
-              </article>
-            ))}
-            <Introduce>
-              <p>
-                테이블 주위에 모여 앉아 도란도란 가족의 소식을 나누거나, 게임을
-                하고 숙제를 도와주거나, 물건들
-              </p>
-              <p>
-                을 올려두세요. 다양한 사이즈와 스타일로 출시되어 원하는 공간과
-                용도에도 알맞은 제품을 고르실
-              </p>
-              <p>
-                수 있어요. 온라인에서 제품을 찾아보거나 매장에서 직접 실물을
-                구경해보세요.
-              </p>
-            </Introduce>
-          </CategoryContainer>
+          <ProductTitle>"{this.props.match.params.item}"</ProductTitle>
           <MainContentsContainer>
             <MainButton>
               {menu.map((menuButton, idx) => (
@@ -189,7 +140,7 @@ class ProductList extends React.Component {
   }
 }
 
-export default ProductList;
+export default ProductSearch;
 
 const ProductListWrapper = styled.div`
   position: relative;

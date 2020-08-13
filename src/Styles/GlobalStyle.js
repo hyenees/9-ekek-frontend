@@ -30,8 +30,9 @@ button:focus,
 select:focus {
   outline: none;
 }
-button {
-  cursor : pointer
+
+button{
+  cursor : pointer;
 }
 `;
 export default GlobalStyle;

@@ -10,7 +10,7 @@ class SideBar extends React.Component {
   render() {
     return (
       <>
-        <Container width>
+        <Container setOverflow>
           <Top>
             <div className="grform_and_img_box">
               <div
@@ -113,7 +113,7 @@ const Container = styled.div`
   bottom: 0;
   left: 0;
   width: 480px;
-  overflow: ${(props) => (props.width ? "" : "hidden")};
+  overflow: ${(props) => (props.setOverflow ? "" : "hidden")};
   height: 952px;
   z-index: 3;
   background-color: white;

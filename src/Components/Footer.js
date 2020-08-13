@@ -29,7 +29,7 @@ class Footer extends React.Component {
             </div>
 
             <div className="text_box_flex">
-              <ul ClassName="list_box">
+              <ul className="list_box">
                 <h4>
                   <p className="text_box_title">고객문의</p>
                 </h4>
@@ -46,7 +46,7 @@ class Footer extends React.Component {
                 </ul>
               </ul>
 
-              <ul ClassName="list_box">
+              <ul className="list_box">
                 <h4>
                   <p className="text_box_title">쇼핑하기</p>
                 </h4>
@@ -63,7 +63,7 @@ class Footer extends React.Component {
                 </ul>
               </ul>
 
-              <ul ClassName="list_box">
+              <ul className="list_box">
                 <h4>
                   <p className="text_box_title">서비스</p>
                 </h4>
@@ -77,7 +77,7 @@ class Footer extends React.Component {
                 </ul>
               </ul>
 
-              <ul ClassName="list_box">
+              <ul className="list_box">
                 <h4>
                   <p className="text_box_title">IKEA 이야기</p>
                 </h4>
@@ -220,7 +220,7 @@ const ContainerInner = styled.div`
   justify-content: space-between;
   height: 435px;
   margin: 0 auto;
-  margin:20px 100px 0px 200px;
+  margin: 20px 100px 0px 200px;
   .ikea_family {
     margin: 0px 0px 10px;
     font-size: 22px;

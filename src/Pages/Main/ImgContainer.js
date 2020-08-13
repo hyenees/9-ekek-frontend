@@ -49,12 +49,12 @@ class ImgContainer extends React.Component {
 export default ImgContainer;
 
 const Wrapper = styled.div`
-  margin: 10px 100px 0 0;
+  margin: 10px 0 0 0;
 
   .img-form {
     display: grid;
     grid-auto-flow: row dense;
-    grid-template-columns: repeat(6, minmax(0, 250px));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     grid-auto-rows: 160px;
     grid-gap: 1.25rem;
   }

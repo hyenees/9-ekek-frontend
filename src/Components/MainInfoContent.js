@@ -7,7 +7,7 @@ class MainInfoContent extends React.Component {
     return (
       <Container>
         <img className="" src={this.props.MainInfoData.image_url} alt="logo" />
-        <Button width>
+        <Button>
           <span>{this.props.MainInfoData.button_name}</span>
         </Button>
       </Container>
