@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 import Furnishing from "../Pages/Main/Furnishing";
-import { API_URL } from "../config";
 
 class FurnishingDetail extends React.Component {
   render() {

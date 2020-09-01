@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ProductContentForm from "../Products/ProductContentForm";
 import Nav from "../../Components/Nav";
-import { API_URL, DATA_PATH } from "../../config";
+import { API_URL } from "../../config";
 
 const menu = [
   "정렬",
@@ -96,7 +96,7 @@ class ProductSearch extends React.Component {
   }
 
   render() {
-    const { subCategoryList, underLine, clicked, productList } = this.state;
+    const { clicked, productList } = this.state;
 
     return (
       <>
@@ -150,63 +150,10 @@ const ProductListWrapper = styled.div`
   margin-left: 150px;
 `;
 
-const CategoryInfo = styled.div`
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #dfdfdf;
-
-  p {
-    margin-right: 10px;
-  }
-
-  .text {
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
-
 const ProductTitle = styled.h1`
   margin-top: 50px;
   font-size: 30px;
   font-weight: 700;
-`;
-
-const CategoryContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-
-  article {
-    margin: 30px 20px 0 0;
-    cursor: pointer;
-
-    img {
-      width: 161px;
-      height: 100px;
-    }
-
-    p {
-      margin-top: 30px;
-      font-size: 14px;
-    }
-
-    .show-underline {
-      text-decoration: underline;
-    }
-  }
-`;
-
-const Introduce = styled.div`
-  margin-top: 30px;
-
-  p {
-    margin-top: 10px;
-    font-size: 16px;
-  }
 `;
 
 const MainContentsContainer = styled.div`

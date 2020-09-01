@@ -1,9 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { GrFormClose } from "react-icons/gr";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import ikea from "../../Images/ikea.svg";
 
 class SideBarClickFurniture extends React.Component {
   render() {
@@ -159,7 +156,7 @@ const Content = styled.div`
     justify-content: space-around;
     width: 259px;
     padding: 32px 0 32px 0;
-    /* border-left:1px solid black; */
+
     li {
       font-size: 14px;
       line-height: 24px;
