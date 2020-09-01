@@ -13,7 +13,7 @@ function CartProduct(props) {
   } = props.product;
   return (
     <List>
-      <img src={product_image}></img>
+      <img src={product_image} alt=""></img>
       <ListLeft>
         <div className="product-name">{product_name}</div>
         <div className="product-info">

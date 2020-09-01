@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import month from "../Images/month.png";
 
 class MonthlyContent extends React.Component {
   render() {

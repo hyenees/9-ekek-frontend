@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import maininfo from "../Images/maininfo.png";
 
 class MainInfoContent extends React.Component {
   render() {
